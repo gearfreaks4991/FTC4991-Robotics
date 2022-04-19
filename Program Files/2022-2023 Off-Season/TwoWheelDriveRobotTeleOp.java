@@ -55,8 +55,8 @@ public class TwoWheelDriveRobotTeleOp extends LinearOpMode {
             RightMotorPower = right_y_value;
             LeftMotorPower = Range.clip(LeftMotorPower, -1, 1);
             RightMotorPower = Range.clip(RightMotorPower, -1, 1);
-            LeftMotor.setPower(LeftMotorPower);
-            RightMotor.setPower(RightMotorPower);
+            LeftMotor.setPower(-LeftMotorPower*(0.50));
+            RightMotor.setPower(-RightMotorPower*(0.50));
 
 
         }
