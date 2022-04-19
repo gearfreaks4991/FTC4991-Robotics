@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
 
 
-
+    // -- Defining Buttons -- \\
     boolean A;
     boolean B;
     boolean X;
@@ -17,6 +17,8 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
     boolean DpadDown;
     boolean DpadLeft;
     boolean DpadRight;
+
+    // -- Defining Variables -- \\
     float LeftJoystickX;
     float RightJoystickX;
     float LeftJoystickY;
@@ -25,6 +27,7 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        // -- Defining Servos -- \\
         Servo FL_Upper;
         Servo FL_Lower;
         Servo FR_Upper;
@@ -34,6 +37,11 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
         Servo BR_Upper;
         Servo BR_Lower;
 
+        // -- Hardwaremapping Section -- \\
+        /* Hardwaremapping tells the program what the motors, servos, and other technical parts should be called
+        in the configuration. We also use this section the motors' directions, so that the robot drives the correct
+        way, and set the mode of them, as well.
+        */
         FL_Upper = hardwareMap.servo.get("ufl");
         FL_Lower = hardwareMap.servo.get("lfl");
         FR_Upper = hardwareMap.servo.get("ufr");
@@ -48,8 +56,15 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
 
 
         while (opModeIsActive()) {
+            // -- Code Information -- \\
+            /*
+                This program is used to get very specific values of both the Upper and Lower servos for each
+                leg. We can use this program when we want these more specific values so we can apply them
+                to the other programs.
+             */
 
-
+            // -- Button Mapping -- \\
+            // This sets the Button Variables to the correct buttons on the GamePads.
             A = gamepad1.a;
             B = gamepad1.b;
             X = gamepad1.x;
@@ -64,6 +79,12 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             RightJoystickY = gamepad1.right_stick_y;
 
             // FL Upper
+            /*
+                The A and B buttons control the FL_Upper servo. when the A button is pressed, it sets the
+                Upper servo to a specific position, every time you push this button it moves the servo by 0.1.
+                The B button does the same but moves it in a different direction.
+
+             */
             if (A) {
                 FL_Upper.setPosition(0.4);
                 telemetry.addData("FL_Upper Pos:", FL_Upper.getPosition());
@@ -76,6 +97,10 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // FL Lower
+            /*
+                Controlled by the X and Y buttons, this controls the FL_Lower servo. it moves the servo in
+                 increments of 0.1 in both directions.
+             */
             if (X) {
                 FL_Lower.setPosition(0.4);
                 telemetry.addData("FL_Lower Pos:", FL_Lower.getPosition());
@@ -88,6 +113,10 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // FR Upper
+            /*
+                Controlled by the Up and Down Dpad buttons, this controls the FR_Upper servo.
+                it moves the servo in increments of 0.1 in both directions.
+             */
             if (DpadUp) {
                 FR_Upper.setPosition(0.4);
                 telemetry.addData("FR_Upper Pos:", FR_Upper.getPosition());
@@ -100,6 +129,10 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // FR Lower
+            /*
+                By Pressing the Left and Right Dpad buttons, this controls the FR_Lower servo.
+                it moves the servo in increments of 0.1 in both directions.
+             */
             if (DpadLeft) {
                 FR_Lower.setPosition(0.4);
                 telemetry.addData("FL_Lower Pos:", FR_Lower.getPosition());
@@ -112,6 +145,14 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // BL Upper
+            /*
+                By Pushing the Left Joystick up or down, changing the Y value positively or negatively,
+                this controls the BL_Upper servo. it moves the servo in increments of 0.1 in both directions.
+                Because we use the Joysticks in the following If-Statements, and because they are not like
+                buttons where they are either on or off, we first detect if the joystick is pushed past 0.2.
+                If it detects it is past the 0.2 or -0.2 value, it moves the servo by 0.1 or by -0.1 in
+                each corresponding direction.
+             */
             if (LeftJoystickY > 0.2) {
                 BL_Upper.setPosition(0.4);
                 telemetry.addData("BL_Upper Pos:", BL_Upper.getPosition());
@@ -124,6 +165,10 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // BL Lower
+            /*
+                By Pushing the Left Joystick up or down, changing the Y value positively or negatively,
+                this controls the BL_Lower servo.
+             */
             if (LeftJoystickX > 0.2) {
                 BL_Lower.setPosition(0.4);
                 telemetry.addData("BL_Lower Pos:", BL_Lower.getPosition());
@@ -136,6 +181,10 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // BR Upper
+            /*
+                By Pushing the Left Joystick up or down, changing the Y value positively or negatively,
+                this controls the BR_Upper servo.
+             */
             if (RightJoystickY > 0.2) {
                 BR_Upper.setPosition(0.4);
                 telemetry.addData("BR_Upper Pos:", BR_Upper.getPosition());
@@ -148,6 +197,10 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
             }
 
             // BR Lower
+            /*
+                By Pushing the Left Joystick up or down, changing the Y value positively or negatively,
+                this controls the BR_Lower servo.
+             */
             if (RightJoystickX > 0.2) {
                 BR_Lower.setPosition(0.4);
                 telemetry.addData("BR_Lower Pos:", BR_Lower.getPosition());
@@ -159,7 +212,6 @@ public class WyattsWalkingRobot_TelemetryTest extends LinearOpMode {
                 telemetry.update();
             }
 
-            // If this doesn't work I will spontaneously combust into a moderately-sized napalm explosion resulting in the death of brupper_upper(tm).
         }
 
     }

@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 public abstract class WyattsWalkingRobot_AutoBase extends LinearOpMode {
 
+    // Defining the Servo Names
     Servo FL_Upper;
     Servo FL_Lower;
     Servo FR_Upper;
@@ -16,7 +17,21 @@ public abstract class WyattsWalkingRobot_AutoBase extends LinearOpMode {
     Servo BR_Upper;
     Servo BR_Lower;
 
+    /*
+        Because this is an Autonomous Base program, there is no need to include things such as waitforstart,
+        calling @TeleOp or @Autonomous, and others. This is because this program is used for calling
+        functions in other programs. There are 4 basic functions included in this program, which will be
+        elaborated on further below in this program.
+     */
 
+
+    /*
+        FL_Movement takes the values that we found while testing/troubleshooting the normal TeleOp program.
+        We took the code from the TeleOp were you would push a button and it would move on particular leg.
+        By doing this we made it so instead of having to push each individual button, you would only need to
+        call FL_Movement in a separate Autonomous Program for the entire Front Left Leg movement pattern to
+        play out.
+     */
     public void FL_Movement () {
 
         FL_Upper.setPosition(0.3);
@@ -30,6 +45,10 @@ public abstract class WyattsWalkingRobot_AutoBase extends LinearOpMode {
 
     }
 
+    /*
+        BR_Movement is the same as FL_Movement, as in we took the values and code included in the
+        WyattsWalkingRobot_TeleOp and put it into a function here.
+     */
     public void BR_Movement () {
 
         BR_Upper.setPosition(0.3);
@@ -46,6 +65,10 @@ public abstract class WyattsWalkingRobot_AutoBase extends LinearOpMode {
 
     }
 
+    /*
+        BL_Movement is the same as FL_Movement. Again, we took the latest values and latest updated
+        code included in the WyattsWalkingRobot_TeleOp and put it into a function here.
+     */
     public void BL_Movement () {
 
         BL_Upper.setPosition(0.3);
@@ -59,6 +82,10 @@ public abstract class WyattsWalkingRobot_AutoBase extends LinearOpMode {
 
     }
 
+    /*
+        Finally, FR_Movement is the same as FL_Movement. We took the latest values and latest updated
+        code included in the WyattsWalkingRobot_TeleOp and apply it into a function included here.
+     */
     public void FR_Movement () {
 
         FR_Upper.setPosition(0.3);
