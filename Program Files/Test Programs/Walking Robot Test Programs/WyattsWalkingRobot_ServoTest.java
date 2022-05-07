@@ -85,14 +85,15 @@ public class WyattsWalkingRobot_ServoTest extends LinearOpMode {
 
             if (A) {
 
-                BR_Upper.setPosition(1.0);
-                sleep(5000);
-                BR_Lower.setPosition(0.0);
-                sleep(5000);
-                BR_Upper.setPosition(0.1);
-                sleep(5000);
-                BR_Upper.setPosition(0.5);
+                BR_Upper.setPosition(0.2);
+                sleep(3500);
                 BR_Lower.setPosition(1.0);
+                sleep(3500);
+                BR_Upper.setPosition(0.85);
+                sleep(3500);
+                BR_Lower.setPosition(0.0);
+                sleep(3500);
+                BR_Upper.setPosition(0.5);
 
             }
 
@@ -100,11 +101,11 @@ public class WyattsWalkingRobot_ServoTest extends LinearOpMode {
             if (B) {
 
                 FL_Upper.setPosition(0.9);
-                sleep(5000);
+                sleep(2500);
                 FL_Upper.setPosition(0.3);
-                sleep(5000);
+                sleep(2500);
                 FL_Lower.setPosition(0.0);
-                sleep(5000);
+                sleep(2500);
                 FL_Upper.setPosition(0.5);
                 FL_Lower.setPosition(1.0);
 
@@ -114,11 +115,11 @@ public class WyattsWalkingRobot_ServoTest extends LinearOpMode {
             if (Y) {
 
                 BL_Upper.setPosition(1.0);
-                sleep(5000);
+                sleep(2500);
                 BL_Lower.setPosition(0.0);
-                sleep(5000);
+                sleep(2500);
                 BL_Upper.setPosition(0.1);
-                sleep(5000);
+                sleep(2500);
                 BL_Upper.setPosition(0.5);
                 BL_Lower.setPosition(1.0);
 
@@ -127,12 +128,12 @@ public class WyattsWalkingRobot_ServoTest extends LinearOpMode {
 
             if (X) {
 
+                FR_Upper.setPosition(0.1);
+                sleep(2500);
                 FR_Upper.setPosition(0.9);
-                sleep(5000);
-                FR_Lower.setPosition(0.0);
-                sleep(5000);
-                FR_Upper.setPosition(0.0);
-                sleep(5000);
+                sleep(2500);
+                FR_Upper.setPosition(0.1);
+                sleep(2500);
                 FR_Upper.setPosition(0.5);
                 FR_Lower.setPosition(1.0);
             }

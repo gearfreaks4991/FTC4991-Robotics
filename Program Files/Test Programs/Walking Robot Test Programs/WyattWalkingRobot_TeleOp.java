@@ -76,14 +76,17 @@ public class WyattWalkingRobot_TeleOp extends LinearOpMode {
 
             if (A) {
 
-                BR_Upper.setPosition(1.0);
-                sleep(500);
-                BR_Lower.setPosition(0.0);
-                sleep(500);
-                BR_Upper.setPosition(0.1);
-                sleep(500);
-                BR_Upper.setPosition(0.5);
+                BR_Upper.setPosition(0.35);
+                sleep(150);
+                BR_Lower.setPosition(0.525);
+                sleep(2000);
+                BR_Upper.setPosition(0.75);
+                sleep(100);
                 BR_Lower.setPosition(1.0);
+                sleep(400);
+                BR_Lower.setPosition(0.0);
+                sleep(1000);
+                BR_Upper.setPosition(0.5);
 
             }
 
@@ -121,14 +124,17 @@ public class WyattWalkingRobot_TeleOp extends LinearOpMode {
 
             if (X) {
 
-                FR_Upper.setPosition(0.9);
-                sleep(5000);
-                FR_Lower.setPosition(0.0);
-                sleep(5000);
-                FR_Upper.setPosition(0.0);
-                sleep(5000);
-                FR_Upper.setPosition(0.5);
+                FR_Upper.setPosition(0.35);
+                sleep(150);
+                FR_Lower.setPosition(0.525);
+                sleep(2000);
+                FR_Upper.setPosition(0.75);
+                sleep(100);
                 FR_Lower.setPosition(1.0);
+                sleep(400);
+                FR_Lower.setPosition(0.0);
+                sleep(1000);
+                FR_Upper.setPosition(0.5);
             }
 
 
