@@ -16,7 +16,7 @@ public class COMP22_Mecanum_AutoTest extends LinearOpMode {
     DcMotor FR;
     DcMotor BL;
     DcMotor BR;
-    DcMotor Lift;
+    Servo Lift;
 
 
     // -- Defining Servos -- \\
@@ -60,19 +60,23 @@ public class COMP22_Mecanum_AutoTest extends LinearOpMode {
         */
 
         FL = hardwareMap.dcMotor.get("fl");
-        FL.setDirection(DcMotorSimple.Direction.REVERSE);
         FR = hardwareMap.dcMotor.get("fr");
+        FR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL = hardwareMap.dcMotor.get("bl");
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
         BR = hardwareMap.dcMotor.get("br");
-        Lift = hardwareMap.dcMotor.get("lift");
-        Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Lift.setTargetPosition(0);
-        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BR.setDirection(DcMotorSimple.Direction.REVERSE);
+        Lift = hardwareMap.servo.get("lift");
+        //Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Lift.setTargetPosition(0);
+        //Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
 
            waitForStart();
+
+
+        Lift.setPosition(0.125);
 
         while (opModeIsActive()) {
             // -- Code Information -- \\
@@ -101,15 +105,15 @@ public class COMP22_Mecanum_AutoTest extends LinearOpMode {
             //Buttons for 2nd controller
             RB = gamepad2.right_bumper;
             LB = gamepad2.left_bumper;
-            DpadUp = gamepad2.dpad_up;
-            DpadDown = gamepad2.dpad_down;
-            DpadLeft = gamepad2.dpad_left;
-            DpadRight = gamepad2.dpad_right;
-            A = gamepad2.a;
-            B = gamepad2.b;
+            DpadUp = gamepad1.dpad_up;
+            DpadDown = gamepad1.dpad_down;
+            DpadLeft = gamepad1.dpad_left;
+            DpadRight = gamepad1.dpad_right;
+            A = gamepad1.a;
+            B = gamepad1.b;
 
 
-            telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
+            //telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
             telemetry.update();
             // This finds and takes the current value of the Joysticks, and sets the value of the variables to the
             // value of the Joysticks.
@@ -142,68 +146,41 @@ public class COMP22_Mecanum_AutoTest extends LinearOpMode {
             // Finally, this takes the Power Variables, and sets the power of the actual Motors to the power of the
             // Joysticks.
 
-            FL.setPower(FL_power*(0.85));
-            FR.setPower(FR_power*(0.85));
-            BL.setPower(BL_power*(0.85));
-            BR.setPower(BR_power*(0.85));
+            FL.setPower(FL_power*(0.6));
+            FR.setPower(FR_power*(0.6));
+            BL.setPower(BL_power*(0.6));
+            BR.setPower(BR_power*(0.6));
 
 
             // PLEASE CHANGE THIS!!!!!!! This is used to set the starting position of the Lift needs to be, we do this to make sure that the
             // robot starts correctly and that the Lift operates without issues.
 
-          /*  if (A) {
-                Lift.setPower(1.00); // Sets the power of the Lift to 100% in Forward
-                destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
+           if (A) {
+                Lift.setPosition(0.50); // Sets the power of the Lift to 100% in Forward
+              /*  destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
                 destination+=100; // This adds the number of Ticks to the stored current position of the lift.
                 sleep (200); // Sleep to ensure that it has time to complete the action.
                 Lift.setTargetPosition(destination); // The Position of the Lift is Updated to the newer Position.
                 telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-                telemetry.update();
+                telemetry.update(); */
             }
 
             // CHANGE IMMEDIATELY!!!! This does the same thing as the other D-Pad Statement, but subtracts Ticks instead of adding them.
             if (B) {
-                Lift.setPower(-1.00);
-                destination=Lift.getCurrentPosition();
+                Lift.setPosition(0.35);
+               /* destination=Lift.getCurrentPosition();
                 destination-=100; // Minus and equal sign subtracts 100 Ticks and stores it as it's new base value.
                 sleep (200);
                 Lift.setTargetPosition(destination);
                 telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-                telemetry.update();
+                telemetry.update(); */
             }
 
             //CHANGE THIS!!!!! We have all four D-Pad buttons change the height of the lift: D-Pad down moves to lower position,
             //D-Pad left is bottom goal position, D-Pad right is middle goal position, and D-Pad up is
             //upper goal position. We also have buttons to slightly modify the position of the lift.
 
-            if(DpadDown) {
-                Lift.setPower(0.50);
-                Lift.setTargetPosition(0);
-                telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-                telemetry.update();
-            }
 
-            if(DpadLeft) {
-                Lift.setPower(0.50);
-                Lift.setTargetPosition(1500);
-                telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-                telemetry.update();
-            }
-
-            if(DpadRight) {
-                Lift.setPower(0.50);
-                Lift.setTargetPosition(2500);
-                telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-                telemetry.update();
-            }
-
-            if(DpadUp) {
-                Lift.setPower(0.50);
-                Lift.setTargetPosition(3500);
-                telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-                telemetry.update();
-            }
-            */
 
 
 
