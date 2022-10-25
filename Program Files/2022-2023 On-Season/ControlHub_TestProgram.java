@@ -10,6 +10,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
+
 @TeleOp(name="ControlHub_TestProgram")
 public class ControlHub_TestProgram extends LinearOpMode {
 
@@ -44,9 +45,9 @@ public class ControlHub_TestProgram extends LinearOpMode {
         Motor2 = hardwareMap.dcMotor.get("motor2");
         Motor3 = hardwareMap.dcMotor.get("motor3");
         Motor4 = hardwareMap.dcMotor.get("motor4");
-        Motor4.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Motor4.setTargetPosition(0);
-        Motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        //Motor4.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        //Motor4.setTargetPosition(0);
+        //Motor4.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         Servo360 = hardwareMap.servo.get("servo360");
         Servo180 = hardwareMap.servo.get("servo180");
         ColorSensor = hardwareMap.colorSensor.get("color");
@@ -74,7 +75,7 @@ public class ControlHub_TestProgram extends LinearOpMode {
             // Motor1 Code
             if (DpadUp) {
 
-                Motor1.setPower(0.85);
+                Motor1.setPower(1.0);
                 telemetry.addData("Motor1 Running, Power Percentage:", Motor1.getPower());
 
             }
@@ -85,7 +86,7 @@ public class ControlHub_TestProgram extends LinearOpMode {
             // Motor2 Code
             if (DpadRight) {
 
-                Motor2.setPower(0.85);
+                Motor2.setPower(1.0);
                 telemetry.addData("Motor2 Running, Power Percentage:", Motor2.getPower());
             }
             else {
@@ -95,7 +96,7 @@ public class ControlHub_TestProgram extends LinearOpMode {
             // Motor3 Code
             if (DpadDown) {
 
-                Motor3.setPower(0.85);
+                Motor3.setPower(1.0);
                 telemetry.addData("Motor3 Running, Power Percentage:", Motor3.getPower());
 
             }
@@ -103,8 +104,18 @@ public class ControlHub_TestProgram extends LinearOpMode {
                 Motor3.setPower(0.00);
             }
 
+
+            if (DpadLeft) {
+
+                Motor4.setPower(1.0);
+                telemetry.addData("Motor4 Running, Power Percentage:", Motor3.getPower());
+
+            }
+            else {
+                Motor4.setPower(0.00);
+            }
             // Motor4 Code
-            if (A) {
+           /* if (A) {
                 Motor4.setPower(-1.00);
                 destination=Motor4.getCurrentPosition();
                 destination-=100;
@@ -122,7 +133,7 @@ public class ControlHub_TestProgram extends LinearOpMode {
                 Motor4.setTargetPosition(destination);
                 telemetry.addData("Lift Pos:", Motor4.getCurrentPosition());
                 telemetry.update();
-            }
+            }*/
 
             // 360 Degree Servo Code
             if (X) {
