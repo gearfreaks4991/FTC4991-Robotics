@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="AUTO22_BlueR")
-public class AUTO22_BlueR extends COMP22_Auto_Base {
+public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -25,11 +25,6 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
         double FR_power = 0.0;
         double BL_power = 0.0;
         double BR_power = 0.0;
-        boolean First;
-        boolean Second;
-        boolean Third;
-
-
 
 
         init_motors();
@@ -43,19 +38,25 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
 
         waitForStart();
         /*
-            The goal of this program is to 1; drive up to one of the 3 squares and check for the Duck/Team
-            Shipping Element. If it does not detect one of the game elements, it will strafe to the next square.
-            It does this with the first two, if it doesn't detect the game elements there, it automatically assumes
-            that it is located in the 3rd square, and will drop the cube off in the 3rd level.
-
-            In this variant, it will do nothing after completing the cube task.
-
+            The goal of this program is to do five things; detect the sleeve correctly, place a cone on the terminal, the
+            low junction near to the station, and the other low junction closest to the terminal, and finally park correctly
+            in the designated space.
         The Drive Motors are 312 RPM with 537.7 Pulses per Rotation
         */
 
-        drive(0.50, 650);
+        //drive, strafe right, drive, turn 45 degrees left, turn 45 degrees left, turn 45 degrees right, turn 45 degrees left,
+        //strafe left, drive, ???
 
-        sleep(750);
+        drive(0.50, 50);
+        strafe(0.50, 50);
+        drive(0.50, 50);
+        turn(0.50, -50);
+        turn(0.50, -50);
+        turn(0.50, 50);
+        turn(0.50, -50);
+        strafe(0.50, -50);
+        drive(0.50, 50);
+
 
 
 
