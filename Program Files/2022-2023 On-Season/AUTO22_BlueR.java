@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="AUTO22_BlueR")
-public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
+public class AUTO22_BlueR extends COMP22_Auto_Base_ProgramC {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -29,12 +29,6 @@ public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
 
         init_motors();
 
-        // Hardwaremapping the various devices.
-        Intake = hardwareMap.servo.get("intake");
-        Color = hardwareMap.colorSensor.get("color");
-        Lift = hardwareMap.dcMotor.get("lift");
-        Lift.setTargetPosition(0);
-        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         waitForStart();
         /*
@@ -47,16 +41,30 @@ public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
         //drive, strafe right, drive, turn 45 degrees left, turn 45 degrees left, turn 45 degrees right, turn 45 degrees left,
         //strafe left, drive, ???
 
-        drive(0.50, 50);
-        strafe(0.50, 50);
-        drive(0.50, 50);
-        turn(0.50, -50);
-        turn(0.50, -50);
-        turn(0.50, 50);
-        turn(0.50, -50);
-        strafe(0.50, -50);
-        drive(0.50, 50);
+        drive(0.50, 500);
+        strafe(0.50, -875);
+        drive(0.50, 800);
+        turn(0.50, 275);
+        turn(0.50, 275);
+        turn(0.50, -275);
+        turn(0.50, 275);
+        strafe(0.50, 800);
+        drive(0.50, 800);
 
+
+
+        /*drive(0.20, 1000);
+        sleep(500);
+        drive(0.20, -1000);
+        sleep(500);
+        strafe(0.20, 1000);
+        sleep(500);
+        strafe(0.20, -1000);
+        sleep(500);
+        turn(0.20, 1000);
+        sleep(500);
+        turn(0.20, -1000);
+        sleep(500);*/
 
 
 
