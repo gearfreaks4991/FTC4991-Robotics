@@ -61,6 +61,7 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
 
     }
 
+
     //This public void is used to drive the robot forward or backwards. all that's needed is the speed
     //and length it moves. setting the "ticks" to negative will make the robot move backwards.
     public void drive (double speed, int ticks) {
