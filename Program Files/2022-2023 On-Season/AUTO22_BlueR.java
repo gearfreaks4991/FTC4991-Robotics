@@ -8,16 +8,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="AUTO22_BlueR")
-public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
+public class AUTO22_BlueR extends COMP22_Auto_Base {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
 
         // Defining the Motors, Servos, and Color Sensor.
-        DcMotor Lift;
-        Servo Intake;
-        ColorSensor Color;
+
 
         // Defining the Variables used in the program.
         int destination=0;
@@ -30,11 +28,6 @@ public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
         init_motors();
 
         // Hardwaremapping the various devices.
-        Intake = hardwareMap.servo.get("intake");
-        Color = hardwareMap.colorSensor.get("color");
-        Lift = hardwareMap.dcMotor.get("lift");
-        Lift.setTargetPosition(0);
-        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
         waitForStart();
         /*
@@ -44,37 +37,53 @@ public class AUTO22_BlueR extends COMP21_Auto_Mecanum_Base {
         The Drive Motors are 312 RPM with 537.7 Pulses per Rotation
         */
 
-        //drive, strafe right, drive, turn 45 degrees left, turn 45 degrees left, turn 45 degrees right, turn 45 degrees left,
-        //strafe left, drive, ???
 
-       /* drive(0.50, 50);
-        strafe(0.50, 50);
-        drive(0.50, 50);
-        turn(0.50, -50);
-        turn(0.50, -50);
-        turn(0.50, 50);
-        turn(0.50, -50);
-        strafe(0.50, -50);
-        drive(0.50, 50); */
+
+        // drive, (detect), turn right 90 degrees, drive,(drop cone), turn left 90 degrees, drive, turn 45 degrees left, (pick up cone),
+        // turn 45 degrees left, (place cone), turn 45 degrees right, (pick up cone), turn 45 degrees left, strafe left, drive, (place cone), ???
+
+
+        Lift.setTargetPosition(-270);
+        sleep(500);
+        Lift.setTargetPosition(0);
+        sleep(500);
+        Claw.setPosition(0.00);
+        sleep(500);
 
         drive(0.50, 500);
         sleep(1500);
-        strafe(0.50, -875);
+        turn(0.50, -500);
+        sleep(1500);
+        drive(0.50, 800);
+        sleep(1500);
+        Claw.setPosition(1.00);
+        sleep(500);
+
+        turn(0.50, 500);
         sleep(1500);
         drive(0.50, 800);
         sleep(1500);
         turn(0.50, 275);
         sleep(1500);
+        pickupsmall();
+        sleep(1500);
         turn(0.50, 275);
         sleep(1500);
+        Claw.setPosition(1.00);
+        sleep(500);
+
         turn(0.50, -275);
+        sleep(1500);
+        pickupsmall();
         sleep(1500);
         turn(0.50, 275);
         sleep(1500);
         strafe(0.50, 800);
         sleep(1500);
         drive(0.50, 800);
-
+        sleep(1500);
+        Claw.setPosition(1.00);
+        sleep(500);
 
 
         /*drive(0.20, 1000);

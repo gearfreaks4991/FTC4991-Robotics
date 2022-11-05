@@ -6,6 +6,7 @@ import android.graphics.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
@@ -35,12 +36,12 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         FLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FLMotor.setTargetPosition(0);
         FLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FLMotor.setDirection(DcMotor.Direction.REVERSE);
 
         FRMotor = hardwareMap.dcMotor.get("fr");
         FRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FRMotor.setTargetPosition(0);
         FRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        FRMotor.setDirection(DcMotor.Direction.REVERSE);
 
         BLMotor = hardwareMap.dcMotor.get("bl");
         BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -52,13 +53,14 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BRMotor.setTargetPosition(0);
         BRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        BRMotor.setDirection(DcMotor.Direction.REVERSE);
 
         Lift = hardwareMap.dcMotor.get("lift");
         Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift.setTargetPosition(0);
         Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
+        Claw = hardwareMap.servo.get("claw");
     }
 
 
@@ -169,6 +171,28 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BRMotor.setPower(0.00);
     }
 
+
+    public void pickupsmall () {
+        Lift.setTargetPosition(0);
+        sleep(1000);
+        Claw.setPosition(0.00);
+        sleep(1000);
+        Lift.setTargetPosition(-1300);
+    }
+    public void pickupmid () {
+        Lift.setTargetPosition(0);
+        sleep(1000);
+        Claw.setPosition(0.00);
+        sleep(1000);
+        Lift.setTargetPosition(-2135);
+    }
+    public void pickuptall () {
+        Lift.setTargetPosition(0);
+        sleep(1000);
+        Claw.setPosition(0.00);
+        sleep(1000);
+        Lift.setTargetPosition(-3000);
+    }
 
 
 }
