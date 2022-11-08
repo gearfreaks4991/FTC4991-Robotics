@@ -47,7 +47,7 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLMotor.setTargetPosition(0);
         BLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BLMotor.setDirection(DcMotor.Direction.REVERSE);
+
 
         BRMotor = hardwareMap.dcMotor.get("br");
         BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
