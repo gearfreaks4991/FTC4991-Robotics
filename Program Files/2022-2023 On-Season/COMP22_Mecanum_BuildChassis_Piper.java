@@ -29,20 +29,19 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
 
 
     // -- Defining Buttons -- \\
-    float RS; // Right Joystick
-    float LS; // Left Joystick
-    boolean DpadDown; // D-Pad Down
-    boolean DpadUp; // D-Pad Up
-    boolean DpadLeft; // D-Pad Left
-    boolean DpadRight; // D-Pad Right
-    float LT; // Left Trigger
-    float RT; // Right Trigger
-    boolean A; // A Button
-    boolean B; // B Button
-    boolean LB; // Left Bumper
-    boolean RB; // Right Bumper
-    boolean X; // X Button
-    boolean Y; // Y Button
+    float RS1; // Right Joystick
+    float LS1; // Left Joystick
+    boolean DpadDown1; // D-Pad Down, Gamepad 1
+    boolean DpadDown2; // D-Pad Down
+    boolean DpadUp2; // D-Pad Up
+    boolean DpadLeft2; // D-Pad Left
+    boolean DpadRight2; // D-Pad Right
+    float LT1; // Left Trigger
+    float RT1; // Right Trigger
+    float LT2; // Left Trigger, Gamepad 2
+    float RT2; // Right Trigger, Gamepad 2
+    boolean A2; // A Button
+    boolean B2; // B Button
 
 
     // This integer is used for the Lift motor.
@@ -84,29 +83,28 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
             // -- Code Information -- \\
             /*
                 PLEASE CHANGE!!!!!!
-             */
+            */
 
 
             // -- Button Mapping -- \\
             // This sets the Button Variables to the correct buttons on the GamePads.
 
             //Buttons for 1st controller
-            RS = gamepad1.right_stick_y;
-            LS = gamepad1.left_stick_y;
-            LT = gamepad1.left_trigger;
-            RT = gamepad1.right_trigger;
-            X = gamepad1.x;
-            RB = gamepad2.right_bumper;
-            LB = gamepad2.left_bumper;
-            DpadUp = gamepad1.dpad_up;
-            DpadDown = gamepad1.dpad_down;
-            DpadLeft = gamepad1.dpad_left;
-            DpadRight = gamepad1.dpad_right;
-            A = gamepad1.a;
-            B = gamepad1.b;
-            Y = gamepad1.y;
+            RS1 = gamepad1.right_stick_y;
+            LS1 = gamepad1.left_stick_y;
+            LT1 = gamepad1.left_trigger;
+            RT1 = gamepad1.right_trigger;
+            DpadDown1 = gamepad1.dpad_down;
 
             //Buttons for 2nd controller
+            LT2 = gamepad2.left_trigger;
+            RT2 = gamepad2.right_trigger;
+            DpadUp2 = gamepad2.dpad_up;
+            DpadDown2 = gamepad2.dpad_down;
+            DpadLeft2 = gamepad2.dpad_left;
+            DpadRight2 = gamepad2.dpad_right;
+            A2 = gamepad2.a;
+            B2 = gamepad2.b;
 
 
             float Yvalue1 = -gamepad1.left_stick_y;
@@ -154,11 +152,15 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
                 field, we can press the Left Trigger to set the motor speed to 60%, which is the maximum speed that is still safe
                 and easy to maneuver around stably.
              */
-            if (RT > 0.9) {
-                Motor_Power = 0.315;
+            if (RT1 > 0.9) {
+                Motor_Power = 0.4;
+                telemetry.addData("Low Speed Mode Enabled. Current Power:",Motor_Power);
+                telemetry.update();
             }
-            if (LT > 0.9) {
-                Motor_Power = 0.6;
+            if (LT1 > 0.9) {
+                Motor_Power = 0.7;
+                telemetry.addData("High Speed Mode Enabled. Current Power:",Motor_Power);
+                telemetry.update();
             }
 
             /*
@@ -191,7 +193,7 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
 
 
 
-            if (B) {
+            if (B2) {
                 Lift.setPower(Lift_power); // Sets the power of the Lift to 100% in Forward
                 destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
                 destination+=25; // This adds the number of Ticks to the stored current position of the lift. // Sleep to ensure that it has time to complete the action.
@@ -203,7 +205,7 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
             }
 
             // This does the same thing as the other D-Pad Statement, but subtracts Ticks instead of adding them.
-            if (A) {
+            if (A2) {
                 Lift.setPower(Lift_power);
                 destination=Lift.getCurrentPosition();
                 destination-=25; // Minus and equal sign subtracts 100 Ticks and stores it as it's new base value.
@@ -215,30 +217,40 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
             }
 
             // Sets the target position so that the robot is able to drop the cone on the tallest pole.
-            if (DpadUp) {
+            if (DpadUp2) {
                 Lift.setTargetPosition(-3000);
+                telemetry.addData("Lifting to Top Position. Target Position:",Lift.getTargetPosition());
+                telemetry.update();
             }
 
             // Sets the target position to be able to drop a cone on the intermediate-level pole.
-            if (DpadLeft) {
+            if (DpadLeft2) {
                 Lift.setTargetPosition(-2160);
+                telemetry.addData("Lifting to Intermediate Position. Target Position:",Lift.getTargetPosition());
+                telemetry.update();
             }
 
             // Sets the target position of the lift to the level needed to drop a cone on the smallest pole.
-            if (DpadDown) {
+            if (DpadDown2) {
                 Lift.setTargetPosition(-1300);
+                telemetry.addData("Lifting to Low Position. Target Position:",Lift.getTargetPosition());
+                telemetry.update();
             }
 
             // Sets the target position to the level needed to drop a cone in the signal areas.
-            if (DpadRight) {
+            if (DpadRight2) {
                 Lift.setTargetPosition(-140);
+                telemetry.addData("Lifting to Signal Position. Target Position:",Lift.getTargetPosition());
+                telemetry.update();
             }
 
-            /* Sets target position back to zero.
-            if (LB) {
+            // Sets target position back to zero.
+            if (DpadDown1) {
                 Lift.setTargetPosition(0);
+                telemetry.addData("Returning to zero position.", Lift.getCurrentPosition());
+                telemetry.update();
             }
-            */
+
 
             /* Safety feature. I put in a software limit to make sure the lift doesn't go so high that it snaps the string or break
             any other components */
@@ -251,7 +263,7 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
 
             }
 
-            if (Y) {
+            if (RT2 > 0.9) {
                 Claw.setPosition(0.00); // Setting the claw servo to the first position.
                 /*
                 Setting the position of the claw servo, it then automatically runs to the set position.
@@ -264,7 +276,7 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
             }
 
             // Second Claw Position.
-            if (X) {
+            if (LT2 > 0.9) {
                 Claw.setPosition(1.00); // Setting the claw servo to the second position.
                 /*
                 This second position allows the claw to grab the cone firmly.
