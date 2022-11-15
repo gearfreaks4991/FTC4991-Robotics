@@ -41,7 +41,7 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
 
         // drive, (detect), turn right 90 degrees, drive,(drop cone), turn left 90 degrees, drive, turn 45 degrees left, (pick up cone),
         // turn 45 degrees left, (place cone), turn 45 degrees right, (pick up cone), turn 45 degrees left, strafe left, drive, (place cone), ???
-
+        //1 Foot = ~500 ticks
 
         Lift.setTargetPosition(-270);
         sleep(500);
@@ -49,10 +49,11 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
         sleep(500);
         Claw.setPosition(0.00);
         sleep(500);
+        Lift.setTargetPosition(-270);
 
-        drive(0.50, 500);
+        drive(0.50, 630);
         sleep(1500);
-        turn(0.50, -500);
+        turn(0.50, -1000);
         sleep(1500);
         drive(0.50, 800);
         sleep(1500);
@@ -86,18 +87,6 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
         sleep(500);
 
 
-        /*drive(0.20, 1000);
-        sleep(500);
-        drive(0.20, -1000);
-        sleep(500);
-        strafe(0.20, 1000);
-        sleep(500);
-        strafe(0.20, -1000);
-        sleep(500);
-        turn(0.20, 1000);
-        sleep(500);
-        turn(0.20, -1000);
-        sleep(500);*/
 
     }
 
