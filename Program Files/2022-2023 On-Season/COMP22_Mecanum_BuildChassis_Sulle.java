@@ -64,7 +64,6 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
         FR = hardwareMap.dcMotor.get("fr");
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL = hardwareMap.dcMotor.get("bl");
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
         BR = hardwareMap.dcMotor.get("br");
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
         Lift = hardwareMap.dcMotor.get("lift");
@@ -121,7 +120,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             if (Xvalue2 > 0 || Xvalue2 < 0) {
                 FL_power = +(Xvalue2);
                 FR_power = -(Xvalue2);
-                BL_power = -(Xvalue2);
+                BL_power = +(Xvalue2);
                 BR_power = -(Xvalue2);
             }
 
@@ -242,9 +241,9 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
             if (Lift.getCurrentPosition() <= -3000) {
 
-                    Lift.setTargetPosition(-3000);
-                    telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
-                    telemetry.update();
+                Lift.setTargetPosition(-3000);
+                telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
+                telemetry.update();
 
             }
 

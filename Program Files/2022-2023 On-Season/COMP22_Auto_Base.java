@@ -171,6 +171,10 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BRMotor.setPower(0.00);
     }
 
+    public void lift (double speed, int ticks) {
+        Lift.setTargetPosition(-ticks);
+        Lift.setPower(speed);
+    }
 
     public void pickupsmall () {
         Lift.setTargetPosition(0);
