@@ -64,7 +64,6 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
         FR = hardwareMap.dcMotor.get("fr");
         FR.setDirection(DcMotorSimple.Direction.REVERSE);
         BL = hardwareMap.dcMotor.get("bl");
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
         BR = hardwareMap.dcMotor.get("br");
         BR.setDirection(DcMotorSimple.Direction.REVERSE);
         Lift = hardwareMap.dcMotor.get("lift");

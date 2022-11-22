@@ -2,19 +2,24 @@ package org.firstinspires.ftc.teamcode;
 
 // import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import android.graphics.Camera;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-public abstract class COMP22_Auto_Base extends LinearOpMode {
+public abstract class COMP21_Auto_Mecanum_Base extends LinearOpMode {
     // -- Program Information -- \\
-
+    /*
+     This is the Autonomous Program base we use for making programs for our Mecanum Robot. The program name is
+     COMP21_Auto_Mecanum_Base, in which the 'COMP21' signifies that is was made and primarily used in the
+     2021 Competition Season. The 'Auto' is short for 'Autonomous', which means that this program is used as a
+     base for making any Autonomous programs, specifically, the Mecanum Wheel Robot, which is what the 'Mecanum'
+     portion of the program name is used for. Finally, the 'Base' part of the program name specifically shows that
+     this is the Base Program which the Autonomous Programs for the 2021 Competition Season utilize.
+     */
 
     //--Defining Motors--\\
     DcMotor FLMotor;
@@ -22,8 +27,9 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
     DcMotor BLMotor;
     DcMotor BRMotor;
     DcMotor Lift;
-    Servo Claw;
-    Camera Camera; // Temporary until we figure out TensorFlow.
+    DcMotor Wheel;
+    Servo Intake;
+    ColorSensor Color;
 
     //--Defining Variables--\\
     int destination = 0;
@@ -37,32 +43,31 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         FLMotor.setTargetPosition(0);
         FLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
+
         FRMotor = hardwareMap.dcMotor.get("fr");
         FRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         FRMotor.setTargetPosition(0);
         FRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        FRMotor.setDirection(DcMotor.Direction.REVERSE);
 
         BLMotor = hardwareMap.dcMotor.get("bl");
         BLMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BLMotor.setTargetPosition(0);
         BLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
         BRMotor = hardwareMap.dcMotor.get("br");
         BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BRMotor.setTargetPosition(0);
         BRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        BRMotor.setDirection(DcMotor.Direction.REVERSE);
+
+
 
         Lift = hardwareMap.dcMotor.get("lift");
         Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift.setTargetPosition(0);
         Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        Claw = hardwareMap.servo.get("claw");
-    }
 
+    }
 
     //This public void is used to drive the robot forward or backwards. all that's needed is the speed
     //and length it moves. setting the "ticks" to negative will make the robot move backwards.
@@ -88,6 +93,8 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         destination+=ticks;
         FRMotor.setTargetPosition(destination);
         FRMotor.setPower(speed);
+
+
 
         while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())) {
             telemetry.addData("FL pos", FLMotor.getCurrentPosition());
@@ -122,20 +129,22 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         FRMotor.setPower(speed);
 
         destination=BLMotor.getCurrentPosition();
-        destination+=ticks;
+        destination-=ticks;
         BLMotor.setTargetPosition(destination);
-        BLMotor.setPower(speed);
+        BLMotor.setPower(-speed);
 
         destination=BRMotor.getCurrentPosition();
         destination-=ticks;
         BRMotor.setTargetPosition(destination);
         BRMotor.setPower(-speed);
 
-        while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));
+        while ((FLMotor.isBusy()) || (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));
         FLMotor.setPower(0.00);
         FRMotor.setPower(0.00);
         BLMotor.setPower(0.00);
         BRMotor.setPower(0.00);
+
+
     }
 
     //This public void will make the robot turn left or right. all that's needed is the speed and length it moves.
@@ -164,35 +173,44 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BRMotor.setPower(speed);
         BRMotor.setTargetPosition(destination);
 
-        while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));
+        while ((FLMotor.isBusy())/*|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())*/);
         FLMotor.setPower(0.00);
         FRMotor.setPower(0.00);
         BLMotor.setPower(0.00);
         BRMotor.setPower(0.00);
+
+
+    }
+
+    public void init_color() {
+
+        Color = hardwareMap.colorSensor.get("color");
+
+            telemetry.addData("red:", Color.red());
+            telemetry.addData("blue:", Color.blue());
+            telemetry.addData("green", Color.green());
+            telemetry.update();
+
+
     }
 
 
-    public void pickupsmall () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-1300);
-    }
-    public void pickupmid () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-2135);
-    }
-    public void pickuptall () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-3000);
-    }
+
+                                 // - extra - \\
+
+    // sensor telemetries \\
+    // color sensor telemetries
+           // telemetry.addData("red:", Color.red());
+           // telemetry.addData("blue:", Color.blue());
+           // telemetry.addData("green", Color.green());
+           // telemetry.update();
+
+    // range sensor telemetries
+            /*telemetry.addData("raw ultrasonic", rangeSensor.rawUltrasonic());
+            telemetry.addData("raw optical", rangeSensor.rawOptical());
+            telemetry.addData("cm optical", "%.2f cm", rangeSensor.cmOptical());
+            telemetry.addData("cm", "%.2f cm", rangeSensor.getDistance(DistanceUnit.CM));
+            telemetry.update();*/
 
 
 }

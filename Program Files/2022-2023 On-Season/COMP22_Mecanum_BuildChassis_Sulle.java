@@ -120,7 +120,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             if (Xvalue2 > 0 || Xvalue2 < 0) {
                 FL_power = +(Xvalue2);
                 FR_power = -(Xvalue2);
-                BL_power = +(Xvalue2);
+                BL_power = -(Xvalue2);
                 BR_power = -(Xvalue2);
             }
 
@@ -241,9 +241,9 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
             if (Lift.getCurrentPosition() <= -3000) {
 
-                Lift.setTargetPosition(-3000);
-                telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
-                telemetry.update();
+                    Lift.setTargetPosition(-3000);
+                    telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
+                    telemetry.update();
 
             }
 
