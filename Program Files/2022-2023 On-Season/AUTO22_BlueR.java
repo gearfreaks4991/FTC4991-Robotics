@@ -31,9 +31,10 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
 
         waitForStart();
         /*
-            The goal of this program is to do five things; detect the sleeve correctly, place a cone on the terminal, the
-            low junction near to the station, and the other low junction closest to the terminal, and finally park correctly
-            in the designated space.
+            The goal of this program is to do three things; detect the sleeve correctly, place 3 cones on the two low junctions and
+            the terminal, and finally park correctly. (for an alternate version of this, we'll place a cone in the floor junction instead
+            of the terminal)
+
         The Drive Motors are 312 RPM with 537.7 Pulses per Rotation
         */
 
@@ -41,30 +42,46 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
 
         // drive, (detect), turn right 90 degrees, drive,(drop cone), turn left 90 degrees, drive, turn 45 degrees left, (pick up cone),
         // turn 45 degrees left, (place cone), turn 45 degrees right, (pick up cone), turn 45 degrees left, strafe left, drive, (place cone), ???
+        //1 Foot = ~500 ticks, so using math 1 inch is roughly 42 ticks (with starting point being back wheels)
 
-
-        Lift.setTargetPosition(-270);
+        Claw.setPosition(1.00);
+        sleep(1500);
+        lift(0.50, 270);
         sleep(500);
-        Lift.setTargetPosition(0);
+        lift(0.50, 0);
         sleep(500);
         Claw.setPosition(0.00);
         sleep(500);
+        lift(0.50, 500);
+        sleep(1000);
 
-        // Beginning of the full program.
 
-
-
-        /*
-        drive(0.50, 500);
-        sleep(1500);
-        turn(0.50, -500);
-        sleep(1500);
-        drive(0.50, 800);
-        sleep(1500);
+        drive(0.50, 650);
+        sleep(1000);
+        turn(0.50, -950); //950 is 90 degrees?
+        sleep(1000);
+        drive(0.50, 1100);
+        sleep(1000);
+        turn(0.50, -475); //45 degrees?
+        sleep(1000);
+        drive(0.50, 100);
         Claw.setPosition(1.00);
         sleep(500);
 
-        turn(0.50, 500);
+        drive(0.50, -500);
+        sleep(1000);
+        turn(0.50, -1425);
+        sleep(1000);
+        drive(0.50, 500);
+
+
+
+
+
+
+
+
+       /* turn(0.50, 1500);
         sleep(1500);
         drive(0.50, 800);
         sleep(1500);
@@ -89,6 +106,8 @@ public class AUTO22_BlueR extends COMP22_Auto_Base {
         sleep(1500);
         Claw.setPosition(1.00);
         sleep(500); */
+
+
 
     }
 

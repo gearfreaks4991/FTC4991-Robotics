@@ -6,13 +6,10 @@ import android.graphics.Camera;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
-public abstract class COMP22_Auto_Base extends LinearOpMode {
+public abstract class COMP22_Auto_Base_ProgramC extends LinearOpMode {
     // -- Program Information -- \\
 
 
@@ -48,21 +45,19 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BLMotor.setTargetPosition(0);
         BLMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
         BRMotor = hardwareMap.dcMotor.get("br");
         BRMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         BRMotor.setTargetPosition(0);
         BRMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         BRMotor.setDirection(DcMotor.Direction.REVERSE);
 
-        Lift = hardwareMap.dcMotor.get("lift");
+        /*Lift = hardwareMap.dcMotor.get("lift");
         Lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         Lift.setTargetPosition(0);
-        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        Lift.setMode(DcMotor.RunMode.RUN_TO_POSITION);*/
 
-        Claw = hardwareMap.servo.get("claw");
+
     }
-
 
     //This public void is used to drive the robot forward or backwards. all that's needed is the speed
     //and length it moves. setting the "ticks" to negative will make the robot move backwards.
@@ -171,32 +166,6 @@ public abstract class COMP22_Auto_Base extends LinearOpMode {
         BRMotor.setPower(0.00);
     }
 
-    public void lift (double speed, int ticks) {
-        Lift.setTargetPosition(-ticks);
-        Lift.setPower(speed);
-    }
-
-    public void pickupsmall () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-1300);
-    }
-    public void pickupmid () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-2135);
-    }
-    public void pickuptall () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-3000);
-    }
 
 
 }
