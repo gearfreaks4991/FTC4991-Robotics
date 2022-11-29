@@ -42,6 +42,10 @@ public class AUTO22_TickTest extends COMP22_Auto_Base {
         telemetry.addData("FR pos", FRMotor.getCurrentPosition());
         telemetry.addData("BL pos", BLMotor.getCurrentPosition());
         telemetry.addData("BR pos", BRMotor.getCurrentPosition());
+        telemetry.update();telemetry.addData("FL pos", FLMotor.getCurrentPosition());
+        telemetry.addData("FR pos", FRMotor.getCurrentPosition());
+        telemetry.addData("BL pos", BLMotor.getCurrentPosition());
+        telemetry.addData("BR pos", BRMotor.getCurrentPosition());
         telemetry.update();
 
     }
