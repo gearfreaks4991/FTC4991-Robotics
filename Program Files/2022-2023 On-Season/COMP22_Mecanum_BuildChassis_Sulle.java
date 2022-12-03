@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -120,7 +119,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             if (Xvalue2 > 0 || Xvalue2 < 0) {
                 FL_power = +(Xvalue2);
                 FR_power = -(Xvalue2);
-                BL_power = -(Xvalue2);
+                BL_power = +(Xvalue2);
                 BR_power = -(Xvalue2);
             }
 
@@ -184,7 +183,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             if (B2) {
                 Lift.setPower(Lift_power); // Sets the power of the Lift to 100% in Forward
                 destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
-                destination+=25; // This adds the number of Ticks to the stored current position of the lift. // Sleep to ensure that it has time to complete the action.
+                destination+=50; // This adds the number of Ticks to the stored current position of the lift. // Sleep to ensure that it has time to complete the action.
                 Lift.setTargetPosition(destination); // The Position of the Lift is Updated to the newer Position.
                 telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
                 telemetry.addData("Destination:", destination);
@@ -196,7 +195,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             if (A2) {
                 Lift.setPower(Lift_power);
                 destination=Lift.getCurrentPosition();
-                destination-=25; // Minus and equal sign subtracts 100 Ticks and stores it as it's new base value.
+                destination-=50; // Minus and equal sign subtracts 100 Ticks and stores it as it's new base value.
                 Lift.setTargetPosition(destination);
                 telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
                 telemetry.addData("Destination:", destination);
@@ -206,9 +205,9 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
             if (DpadUp2) {
                 Lift.setTargetPosition(0);
-                sleep(1000);
+                sleep(1500);
                 Claw.setPosition(0.00);
-                sleep(1000);
+                sleep(1500);
                 Lift.setTargetPosition(-3000);
             }
 
