@@ -3,33 +3,16 @@ package org.firstinspires.ftc.teamcode;
 // import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
-
-import org.firstinspires.ftc.teamcode.COMP22_Auto_Base;
 
 @Autonomous(name="AUTO22_TickTest")
-public class AUTO22_TickTest extends COMP22_Auto_Base {
+public class AUTO22_TickTest extends COMP22_Auto_Base_ProgramChassis {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
 
-        // Defining the Motors, Servos, and Color Sensor.
-
-
-        // Defining the Variables used in the program.
-        int destination = 0;
-        double FL_power = 0.0;
-        double FR_power = 0.0;
-        double BL_power = 0.0;
-        double BR_power = 0.0;
-
 
         init_motors();
-
-        // Hardwaremapping the various devices.
 
         waitForStart();
         /*
@@ -42,11 +25,13 @@ public class AUTO22_TickTest extends COMP22_Auto_Base {
         telemetry.addData("FR pos", FRMotor.getCurrentPosition());
         telemetry.addData("BL pos", BLMotor.getCurrentPosition());
         telemetry.addData("BR pos", BRMotor.getCurrentPosition());
-        telemetry.update();telemetry.addData("FL pos", FLMotor.getCurrentPosition());
-        telemetry.addData("FR pos", FRMotor.getCurrentPosition());
-        telemetry.addData("BL pos", BLMotor.getCurrentPosition());
-        telemetry.addData("BR pos", BRMotor.getCurrentPosition());
         telemetry.update();
+
+        drive(0.25, 2000);
+        sleep(1500);
+        strafe(0.25,-500);
+        sleep(1500);
+        turn(0.25,500);
 
     }
 
