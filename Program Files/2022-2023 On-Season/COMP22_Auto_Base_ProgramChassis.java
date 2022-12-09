@@ -72,22 +72,22 @@ public abstract class COMP22_Auto_Base_ProgramChassis extends LinearOpMode {
         destination=BRMotor.getCurrentPosition();
         destination+=ticks;
         BRMotor.setTargetPosition(destination);
-        BRMotor.setPower(speed);
+        BRMotor.setPower(speed*0.72);
 
         destination=BLMotor.getCurrentPosition();
         destination+=ticks;
         BLMotor.setTargetPosition(destination);
-        BLMotor.setPower(speed);
+        BLMotor.setPower(speed*0.72);
 
         destination=FLMotor.getCurrentPosition();
         destination+=ticks;
         FLMotor.setTargetPosition(destination);
-        FLMotor.setPower(speed);
+        FLMotor.setPower(speed*0.72);
 
         destination=FRMotor.getCurrentPosition();
         destination+=ticks;
         FRMotor.setTargetPosition(destination);
-        FRMotor.setPower(speed);
+        FRMotor.setPower(speed*0.72);
 
         while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())) {
             telemetry.addData("FL pos", FLMotor.getCurrentPosition());
@@ -114,22 +114,22 @@ public abstract class COMP22_Auto_Base_ProgramChassis extends LinearOpMode {
         destination=FLMotor.getCurrentPosition();
         destination-=ticks;
         FLMotor.setTargetPosition(destination);
-        FLMotor.setPower(-speed);
+        FLMotor.setPower(-speed*0.72);
 
         destination=FRMotor.getCurrentPosition();
         destination+=ticks;
         FRMotor.setTargetPosition(destination);
-        FRMotor.setPower(speed);
+        FRMotor.setPower(speed*0.72);
 
         destination=BLMotor.getCurrentPosition();
         destination+=ticks;
         BLMotor.setTargetPosition(destination);
-        BLMotor.setPower(speed);
+        BLMotor.setPower(speed*0.72);
 
         destination=BRMotor.getCurrentPosition();
         destination-=ticks;
         BRMotor.setTargetPosition(destination);
-        BRMotor.setPower(-speed);
+        BRMotor.setPower(-speed*0.72);
 
         while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));
         FLMotor.setPower(0.00);
@@ -146,22 +146,22 @@ public abstract class COMP22_Auto_Base_ProgramChassis extends LinearOpMode {
         //setting the front left and back left wheels to negative will make the robot turn.
         destination=FLMotor.getCurrentPosition();
         destination-=ticks;
-        FLMotor.setPower(-speed);
+        FLMotor.setPower(-speed*0.72);
         FLMotor.setTargetPosition(destination);
 
         destination=FRMotor.getCurrentPosition();
         destination+=ticks;
-        FRMotor.setPower(speed);
+        FRMotor.setPower(speed*0.72);
         FRMotor.setTargetPosition(destination);
 
         destination=BLMotor.getCurrentPosition();
         destination-=ticks;
-        BLMotor.setPower(-speed);
+        BLMotor.setPower(-speed*0.72);
         BLMotor.setTargetPosition(destination);
 
         destination=BRMotor.getCurrentPosition();
         destination+=ticks;
-        BRMotor.setPower(speed);
+        BRMotor.setPower(speed*0.72);
         BRMotor.setTargetPosition(destination);
 
         while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));

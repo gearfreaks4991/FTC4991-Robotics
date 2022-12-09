@@ -83,10 +83,10 @@
          telemetry.update();
          waitForStart();
 
-             /*
-             drive(0.50,1000);
+
+             drive(0.50,651);
              sleep(1500);
-              */
+
 
 
          if (opModeIsActive()) {
@@ -113,43 +113,53 @@
                                  telemetry.addData("position", detectionPos);
                                  telemetry.addData("Detected Bolt.", detectionPos);
                                  telemetry.update();
-                                 drive(0.50,-500);
-                                 sleep(1500);
-                                 strafe(0.50,500);
+                                 drive(0.50, 1250);
+                                 sleep(500);
+                                 strafe(0.50, 1250);
+                                 sleep(500);
+                                 drive(0.50, 1000);
+
                                  break;
                              } else if(recognition.getLabel() == "Bulb") {
                                  detectionPos = 1;
                                  telemetry.addData("position", detectionPos);
                                  telemetry.addData("Detected Bulb.", detectionPos);
                                  telemetry.update();
-                                 drive(0.50,-500);
-                                 sleep(1500);
-                                 strafe(0.50,-500);
+                                 drive(0.50, 2000);
                                  break;
                              } else if(recognition.getLabel() == "Panel") {
                                  detectionPos = 2;
                                  telemetry.addData("position", detectionPos);
                                  telemetry.addData("Detected Panel.", detectionPos);
                                  telemetry.update();
-                                 drive(0.50,-500);
-                                 sleep(1500);
-                                 turn(0.85,500);
-                                 sleep(1500);
-                                 drive(0.50,250);
+                                 drive(0.50, 1250);
+                                 sleep(500);
+                                 strafe(0.50, -1250);
+                                 sleep(500);
+                                 drive(0.50, 1000);
                                  break;
                              }
                              telemetry.addData("position", detectionPos);
                          }
                          telemetry.update();
+
+
+
+
                      }
                  }
              }
          }
+
+
+
+
      }
 
      /**
       * Initialize the Vuforia localization engine.
       */
+
      private void initVuforia() {
 
          VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();

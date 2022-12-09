@@ -7,8 +7,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.matrices.SliceMatrixF;
-
 @TeleOp(name="COMP22_Mecanum_BuildChassis_Sulle")
 public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
@@ -42,11 +40,8 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
     float RT1; // Right Trigger
     float LT2; // Left Trigger, Gamepad 2
     float RT2; // Right Trigger, Gamepad 2
-    boolean X2; // X Button
+    boolean A2; // A Button
     boolean B2; // B Button
-    boolean Y2; // Y Button
-    boolean LB2; //Left bumper
-    boolean RB2; //Right bumper
 
 
     // This integer is used for the Lift motor.
@@ -106,11 +101,8 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             DpadDown2 = gamepad2.dpad_down;
             DpadLeft2 = gamepad2.dpad_left;
             DpadRight2 = gamepad2.dpad_right;
-            X2 = gamepad2.x;
+            A2 = gamepad2.a;
             B2 = gamepad2.b;
-            Y2 = gamepad2.y;
-            LB2 = gamepad2.left_bumper;
-            RB2 = gamepad2.right_bumper;
 
             float Yvalue1 = -gamepad1.left_stick_y;
             float Xvalue1 = gamepad1.left_stick_x;
@@ -188,7 +180,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
 
 
-            if (RB2) {
+            if (B2) {
                 Lift.setPower(Lift_power); // Sets the power of the Lift to 100% in Forward
                 destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
                 destination+=50; // This adds the number of Ticks to the stored current position of the lift. // Sleep to ensure that it has time to complete the action.
@@ -200,7 +192,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             }
 
             // This does the same thing as the other D-Pad Statement, but subtracts Ticks instead of adding them.
-            if (LB2) {
+            if (A2) {
                 Lift.setPower(Lift_power);
                 destination=Lift.getCurrentPosition();
                 destination-=50; // Minus and equal sign subtracts 100 Ticks and stores it as it's new base value.
@@ -209,24 +201,6 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
                 telemetry.addData("Destination:", destination);
                 telemetry.addData("Current Power:",Lift.getPower());
                 telemetry.update();
-            }
-
-            if (X2) {
-                Claw.setPosition(0.00);
-                sleep(500);
-                Lift.setTargetPosition(-1300);
-            }
-
-            if (Y2) {
-                Claw.setPosition(0.00);
-                sleep(500);
-                Lift.setTargetPosition(-3000);
-            }
-
-            if (B2) {
-                Claw.setPosition(0.00);
-                sleep(500);
-                Lift.setTargetPosition(-2135);
             }
 
             if (DpadUp2) {
@@ -243,17 +217,17 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
             if (DpadLeft2) {
                 Lift.setTargetPosition(0);
-                sleep(1000);
+                sleep(1500);
                 Claw.setPosition(0.00);
-                sleep(1000);
+                sleep(1500);
                 Lift.setTargetPosition(-1300);
             }
 
             if (DpadRight2) {
                 Lift.setTargetPosition(0);
-                sleep(1000);
+                sleep(1500);
                 Claw.setPosition(0.00);
-                sleep(1000);
+                sleep(1500);
                 Lift.setTargetPosition(-2135);
             }
 
@@ -266,9 +240,9 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
             if (Lift.getCurrentPosition() <= -3000) {
 
-                Lift.setTargetPosition(-3000);
-                telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
-                telemetry.update();
+                    Lift.setTargetPosition(-3000);
+                    telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
+                    telemetry.update();
 
             }
 
