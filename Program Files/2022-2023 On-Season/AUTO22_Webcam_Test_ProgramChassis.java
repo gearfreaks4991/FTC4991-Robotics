@@ -84,10 +84,9 @@
          waitForStart();
 
 
-             drive(0.50,651);
-             sleep(1500);
 
-
+         drive(0.50,651);
+         sleep(1500);
 
          if (opModeIsActive()) {
              while (opModeIsActive()) {
