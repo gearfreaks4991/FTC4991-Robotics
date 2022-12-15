@@ -29,7 +29,9 @@ public class TensorFlow_TestMiddle extends COMP22_Auto_Base {
         waitForStart();
 
        /*middle*/
-        drive(0.50, 2000);
+        drive(0.50, 1250);
+        sleep(500);
+        drive(0.50, 750);
 
 
 
