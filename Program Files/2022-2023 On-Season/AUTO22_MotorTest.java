@@ -3,12 +3,9 @@ package org.firstinspires.ftc.teamcode;
 // import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.hardware.ColorSensor;
-import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name="AUTO22_MotorTest")
-public class AUTO22_MotorTest extends COMP22_Auto_Base {
+public class AUTO22_MotorTest extends COMP22_Auto_Base_BuildChassis {
 
     @Override
     public void runOpMode() throws InterruptedException {

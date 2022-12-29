@@ -86,7 +86,7 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
         FRMotor.setTargetPosition(destination);
         FRMotor.setPower(speed);
 
-        while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())) {
+        while ((FLMotor.isBusy())/*|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())*/) {
             telemetry.addData("FL pos", FLMotor.getCurrentPosition());
             telemetry.addData("FR pos", FRMotor.getCurrentPosition());
             telemetry.addData("BL pos", BLMotor.getCurrentPosition());
@@ -128,7 +128,7 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
         BRMotor.setTargetPosition(destination);
         BRMotor.setPower(-speed);
 
-        while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));
+        while ((FLMotor.isBusy())/*|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())*/);
         FLMotor.setPower(0.00);
         FRMotor.setPower(0.00);
         BLMotor.setPower(0.00);
@@ -161,7 +161,7 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
         BRMotor.setPower(speed);
         BRMotor.setTargetPosition(destination);
 
-        while ((FLMotor.isBusy())|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy()));
+        while ((FLMotor.isBusy())/*|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())*/);
         FLMotor.setPower(0.00);
         FRMotor.setPower(0.00);
         BLMotor.setPower(0.00);
@@ -169,27 +169,54 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
     }
 
 
-    public void pickupsmall () {
+    public void pickup_small () {
         Lift.setTargetPosition(0);
         sleep(1000);
         Claw.setPosition(0.00);
         sleep(1000);
         Lift.setTargetPosition(-1300);
     }
-    public void pickupmid () {
+    public void pickup_mid () {
         Lift.setTargetPosition(0);
         sleep(1000);
         Claw.setPosition(0.00);
         sleep(1000);
         Lift.setTargetPosition(-2135);
     }
-    public void pickuptall () {
+    public void pickup_tall () {
         Lift.setTargetPosition(0);
         sleep(1000);
         Claw.setPosition(0.00);
         sleep(1000);
         Lift.setTargetPosition(-3000);
     }
+
+    public void dropoff_small () {
+        telemetry.addData("Current Lift Pos:", Lift.getCurrentPosition());
+        telemetry.update();
+        Lift.setTargetPosition(-1385);
+        sleep(250);
+        Claw.setPosition(0.00);
+    }
+    public void pickup_5stack_cone () {
+        telemetry.addData("Current Lift Pos:", Lift.getCurrentPosition());
+        telemetry.update();
+        Lift.setTargetPosition(-590);
+        sleep(250);
+        Claw.setPosition(1.00);
+        sleep(250);
+        Lift.setTargetPosition(-832);
+    }
+    public void dropoff_corner () {
+        telemetry.addData("Current Lift Pos:", Lift.getCurrentPosition());
+        telemetry.update();
+        Lift.setTargetPosition(-150);
+        sleep(250);
+        Claw.setPosition(0.00);
+        sleep(250);
+        Lift.setTargetPosition(-300);
+    }
+
 
 
 }

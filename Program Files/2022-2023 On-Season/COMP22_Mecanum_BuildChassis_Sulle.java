@@ -31,6 +31,10 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
     // -- Defining Buttons -- \\
     float RS1; // Right Joystick
     float LS1; // Left Joystick
+    boolean LB1; // Left Bumper 1
+    boolean RB1; // Right Bumper 1
+    boolean LB2; // Left Bumper 2
+    boolean RB2; // Right Bumper 2
     boolean DpadDown1; // D-Pad Down, Gamepad 1
     boolean DpadDown2; // D-Pad Down
     boolean DpadUp2; // D-Pad Up
@@ -42,6 +46,8 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
     float RT2; // Right Trigger, Gamepad 2
     boolean A2; // A Button
     boolean B2; // B Button
+    boolean X2; // X button 2.
+    boolean Y2; // Y button 2.
 
 
     // This integer is used for the Lift motor.
@@ -92,17 +98,23 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             LS1 = gamepad1.left_stick_y;
             LT1 = gamepad1.left_trigger;
             RT1 = gamepad1.right_trigger;
+            LB1 = gamepad1.left_bumper;
+            RB1 = gamepad1.right_bumper;
             DpadDown1 = gamepad1.dpad_down;
 
             //Buttons for 2nd controller
             LT2 = gamepad2.left_trigger;
             RT2 = gamepad2.right_trigger;
+            LB2 = gamepad2.left_bumper;
+            RB2 = gamepad2.right_bumper;
             DpadUp2 = gamepad2.dpad_up;
             DpadDown2 = gamepad2.dpad_down;
             DpadLeft2 = gamepad2.dpad_left;
             DpadRight2 = gamepad2.dpad_right;
             A2 = gamepad2.a;
             B2 = gamepad2.b;
+            X2 = gamepad2.x;
+            Y2 = gamepad2.y;
 
             float Yvalue1 = -gamepad1.left_stick_y;
             float Xvalue1 = gamepad1.left_stick_x;
@@ -146,10 +158,10 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             }
 
             if (Lift.getCurrentPosition() >= -300) {
-                Lift_power = 0.75;
+                Lift_power = 1.00;
             }
             else {
-                Lift_power = 1.00;
+                Lift_power = 0.75;
             }
 
 
@@ -167,12 +179,12 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
                 field, we can press the Left Trigger to set the motor speed to 60%, which is the maximum speed that is still safe
                 and easy to maneuver around stably.
              */
-            if (LT1 > 0.9) {
+            if (LB1) {
                 Motor_Power = 0.4;
                 telemetry.addData("Low Speed Mode Enabled. Current Power:",Motor_Power);
                 telemetry.update();
             }
-            if (RT1 > 0.9) {
+            if (RB1) {
                 Motor_Power = 0.7;
                 telemetry.addData("High Speed Mode Enabled. Current Power:",Motor_Power);
                 telemetry.update();
@@ -180,7 +192,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
 
 
-            if (B2) {
+            if (LB2) {
                 Lift.setPower(Lift_power); // Sets the power of the Lift to 100% in Forward
                 destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
                 destination+=50; // This adds the number of Ticks to the stored current position of the lift. // Sleep to ensure that it has time to complete the action.
@@ -192,7 +204,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             }
 
             // This does the same thing as the other D-Pad Statement, but subtracts Ticks instead of adding them.
-            if (A2) {
+            if (RB2) {
                 Lift.setPower(Lift_power);
                 destination=Lift.getCurrentPosition();
                 destination-=50; // Minus and equal sign subtracts 100 Ticks and stores it as it's new base value.
@@ -232,17 +244,19 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             }
 
             if (DpadDown1) {
+                Lift.setPower(0.50);
                 Lift.setTargetPosition(0);
                 telemetry.addData("Returning to zero position.", Lift.getCurrentPosition());
                 telemetry.update();
+                Lift.setPower(Lift_power);
             }
 
 
             if (Lift.getCurrentPosition() <= -3000) {
 
-                    Lift.setTargetPosition(-3000);
-                    telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
-                    telemetry.update();
+                Lift.setTargetPosition(-3000);
+                telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
+                telemetry.update();
 
             }
 
@@ -268,6 +282,18 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
                 // More telemetry to allow us to see if there are any issues with the claw and/or our program.
                 telemetry.addData("Servo is running. Running to Position:", Claw.getPosition());
                 telemetry.update();
+            }
+
+            if (Y2) {
+                Lift.setTargetPosition(-3000);
+            }
+
+            if (B2) {
+                Lift.setTargetPosition(-2135);
+            }
+
+            if (X2) {
+                Lift.setTargetPosition(-1300);
             }
 
 
