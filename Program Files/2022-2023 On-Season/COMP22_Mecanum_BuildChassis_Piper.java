@@ -224,21 +224,21 @@ public class COMP22_Mecanum_BuildChassis_Piper extends LinearOpMode {
 
             // Sets the target position to be able to drop a cone on the intermediate-level pole.
             if (DpadLeft2) {
-                Lift.setTargetPosition(-2160);
+                Lift.setTargetPosition(-2236);
                 telemetry.addData("Lifting to Intermediate Position. Target Position:",Lift.getTargetPosition());
                 telemetry.update();
             }
 
             // Sets the target position of the lift to the level needed to drop a cone on the smallest pole.
             if (DpadDown2) {
-                Lift.setTargetPosition(-1300);
+                Lift.setTargetPosition(-1385);
                 telemetry.addData("Lifting to Low Position. Target Position:",Lift.getTargetPosition());
                 telemetry.update();
             }
 
             // Sets the target position to the level needed to drop a cone in the signal areas.
             if (DpadRight2) {
-                Lift.setTargetPosition(-140);
+                Lift.setTargetPosition(-375);
                 telemetry.addData("Lifting to Signal Position. Target Position:",Lift.getTargetPosition());
                 telemetry.update();
             }

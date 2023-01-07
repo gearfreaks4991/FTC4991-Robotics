@@ -101,15 +101,16 @@ public class AUTO22_Blue_Webcam_Cone extends COMP22_Auto_Base_BuildChassis {
         sleep(150);
         turn(0.50,900);
         sleep(150);
-        drive(0.50,-1100);
+        drive(0.50,-900);
         sleep(150);
         strafe(0.50,-600);
         sleep(150);
-        drive(0.50,50);
+        drive(0.50,100);
         sleep(150);
 
         // dropoff_small();
 
+        Lift.setPower(0.75);
         Lift.setTargetPosition(-1385);
         sleep(250);
         Claw.setPosition(0.00);
@@ -124,6 +125,7 @@ public class AUTO22_Blue_Webcam_Cone extends COMP22_Auto_Base_BuildChassis {
 
         // pickup_5stack_cone();
 
+        Lift.setPower(0.75);
         Lift.setTargetPosition(-590);
         sleep(250);
         Claw.setPosition(1.00);
@@ -142,6 +144,7 @@ public class AUTO22_Blue_Webcam_Cone extends COMP22_Auto_Base_BuildChassis {
 
         // dropoff_corner();
 
+        Lift.setPower(0.75);
         Lift.setTargetPosition(-150);
         sleep(250);
         Claw.setPosition(0.00);
@@ -149,13 +152,13 @@ public class AUTO22_Blue_Webcam_Cone extends COMP22_Auto_Base_BuildChassis {
         Lift.setTargetPosition(-300);
 
         sleep(150);
-        drive(0.50,-200);
+        drive(0.50,-1000);
         sleep(150);
         strafe(0.50,-1300);
         sleep(150);
         turn(0.50,1800);
         sleep(150);
-        drive(0.50,400);
+        //drive(0.50,400);
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {

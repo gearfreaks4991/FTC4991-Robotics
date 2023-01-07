@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.util.Range;
 @TeleOp(name="COMP22_Mecanum_BuildChassis_Sulle")
 public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
 
-    // -- Defining Motors -- \\
+    // -- Defining motors used within the program. -- \\
     DcMotor FL;
     DcMotor FR;
     DcMotor BL;
@@ -19,39 +19,43 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
     Servo Claw;
 
 
-    // -- Defining Variables -- \\
+    // -- Defining additional variables needed within the program. -- \\
     double FL_power = 0.0;
     double FR_power = 0.0;
     double BL_power = 0.0;
     double BR_power = 0.0;
     double Lift_power = 0.0;
     double Motor_Power = 0.0;
+    int B = 1;
+    int destination = 0;
+    double C = 0;
 
 
-    // -- Defining Buttons -- \\
+    // -- Defining the buttons used on both gamepad 1 and 2. -- \\
+
+    // Gamepad 1 Buttons.
     float RS1; // Right Joystick
     float LS1; // Left Joystick
     boolean LB1; // Left Bumper 1
     boolean RB1; // Right Bumper 1
-    boolean LB2; // Left Bumper 2
-    boolean RB2; // Right Bumper 2
-    boolean DpadDown1; // D-Pad Down, Gamepad 1
-    boolean DpadDown2; // D-Pad Down
-    boolean DpadUp2; // D-Pad Up
-    boolean DpadLeft2; // D-Pad Left
-    boolean DpadRight2; // D-Pad Right
-    float LT1; // Left Trigger
-    float RT1; // Right Trigger
-    float LT2; // Left Trigger, Gamepad 2
-    float RT2; // Right Trigger, Gamepad 2
-    boolean A2; // A Button
-    boolean B2; // B Button
-    boolean X2; // X button 2.
-    boolean Y2; // Y button 2.
+    float LT1; // Left Trigger, Gamepad 1.
+    float RT1; // Right Trigger, Gamepad 1.
+    boolean DpadDown1; // D-Pad Down, Gamepad 1.
 
+    // Gamepad 2 Buttons.
+    boolean LB2; // Left Bumper, Gamepad 2.
+    boolean RB2; // Right Bumper, Gamepad 2.
+    boolean DpadDown2; // D-Pad Down, Gamepad 2.
+    boolean DpadUp2; // D-Pad Up, Gamepad 2.
+    boolean DpadLeft2; // D-Pad Left, Gamepad 2.
+    boolean DpadRight2; // D-Pad Right, Gamepad 2.
+    float LT2; // Left Trigger, Gamepad 2.
+    float RT2; // Right Trigger, Gamepad 2.
+    boolean A2; // A Button, Gamepad 2.
+    boolean B2; // B Button, Gamepad 2.
+    boolean X2; // X Button, Gamepad 2.
+    boolean Y2; // Y Button, Gamepad 2.
 
-    // This integer is used for the Lift motor.
-    int destination = 0;
 
 
     @Override
@@ -93,7 +97,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             // -- Button Mapping -- \\
             // This sets the Button Variables to the correct buttons on the GamePads.
 
-            //Buttons for 1st controller
+            // Buttons for 1st controller
             RS1 = gamepad1.right_stick_y;
             LS1 = gamepad1.left_stick_y;
             LT1 = gamepad1.left_trigger;
@@ -102,7 +106,7 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             RB1 = gamepad1.right_bumper;
             DpadDown1 = gamepad1.dpad_down;
 
-            //Buttons for 2nd controller
+            // Buttons for 2nd controller
             LT2 = gamepad2.left_trigger;
             RT2 = gamepad2.right_trigger;
             LB2 = gamepad2.left_bumper;
@@ -116,12 +120,35 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             X2 = gamepad2.x;
             Y2 = gamepad2.y;
 
+
+            // Gamepad 1 Controls \\
+
+            /**
+             In this section of the program, we convert the values taken from the joysticks and set it the power of the motors.
+
+             // Step-By-Step Explanation: \\
+
+             1: The program takes the values that the gamepad sticks are currently at, and assigns them to one of three variables depending
+             on which stick was moved and in which direction.
+
+             2: The next two parts of the program then takes the assigned values' numbers and does simple math equations based off
+             of a diagram we use to determine the direction of the wheels and assigns the numbers from these equations to an
+             additional set of variables.
+
+             3: Using a 'Range Clip', it limits the value that the power can be set to in the program to any number within the range
+             of -1 and 1. This prevents the motors from being damaged from trying to set them to a power value that is unable to be
+             reached.
+
+             4: The final part of this program sets the power to the 4 drive wheels. For example, it takes the values from the
+             FL_power variable and sets the power value of the Front Left motor to it. There is oen extra aspect to this part of the
+             program, the motor_power variable. Using the left and right bumper on the 1st gamepad, we can set the 'maximum' power of
+             the motors to roughly either 40% power or 80% power. This part of the program multiplies the value that will
+
+             */
+
             float Yvalue1 = -gamepad1.left_stick_y;
             float Xvalue1 = gamepad1.left_stick_x;
             float Xvalue2 = gamepad1.right_stick_x;
-
-            /* These lines will set value of the power depending on the directions of the values
-             of the joysticks. */
 
             FL_power = (Yvalue1 + Xvalue1);
             FR_power = (Yvalue1 - Xvalue1);
@@ -129,9 +156,9 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             BR_power = (Yvalue1 + Xvalue1);
 
             if (Xvalue2 > 0 || Xvalue2 < 0) {
-                FL_power = +(Xvalue2);
+                FL_power = (Xvalue2);
                 FR_power = -(Xvalue2);
-                BL_power = +(Xvalue2);
+                BL_power = (Xvalue2);
                 BR_power = -(Xvalue2);
             }
 
@@ -150,49 +177,50 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             BR.setPower(BR_power*(Motor_Power));
 
 
-            if (Lift.getCurrentPosition() <= -2700) {
-                Lift_power = 1.00;
-            }
-            else {
-                Lift_power = 0.75;
-            }
-
-            if (Lift.getCurrentPosition() >= -300) {
-                Lift_power = 1.00;
-            }
-            else {
-                Lift_power = 0.75;
-            }
-
-
-            telemetry.addData("Current Power Value:", Lift_power);
-            telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
-            telemetry.addData("Destination:", destination);
-            telemetry.addData("Current Power:",Lift.getPower());
-            telemetry.update();
-
-
              /*
                 Two simple button functions. One the right bumper, when pressed, it sets the drivetrain motors' power to roughly
                 32%. The point to having this is to allow for much more precise maneuvering when necessary, like when driving around the
                 poles, signals, and other key locations. When we need to get somewhere faster, such as larger distances across the
                 field, we can press the Left Trigger to set the motor speed to 60%, which is the maximum speed that is still safe
-                and easy to maneuver around stably.
+                and easy to maneuver around the playing field stably.
              */
             if (LB1) {
                 Motor_Power = 0.4;
                 telemetry.addData("Low Speed Mode Enabled. Current Power:",Motor_Power);
                 telemetry.update();
+                C = 0.4;
             }
             if (RB1) {
                 Motor_Power = 0.7;
                 telemetry.addData("High Speed Mode Enabled. Current Power:",Motor_Power);
                 telemetry.update();
+                C = 0.7;
             }
 
+            /*
+
+             */
+            if (DpadDown1) {
+                B = 0;
+                Lift.setPower(0.50);
+                Lift.setTargetPosition(0);
+                telemetry.addData("Returning to zero position.", Lift.getCurrentPosition());
+                telemetry.update();
+                B = 1;
+                Lift.setPower(Lift_power);
+            }
+
+            // Gamepad 2 Controls \\
+
+            /*if (Lift.isBusy()) {
+                //Motor_Power = 0;
+            }
+
+            else{Motor_Power = C;
+            } */
 
 
-            if (LB2) {
+            if (LB2){
                 Lift.setPower(Lift_power); // Sets the power of the Lift to 100% in Forward
                 destination=Lift.getCurrentPosition(); // Finds and Stores the current position of the Lift.
                 destination+=50; // This adds the number of Ticks to the stored current position of the lift. // Sleep to ensure that it has time to complete the action.
@@ -216,49 +244,63 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             }
 
             if (DpadUp2) {
-                Lift.setTargetPosition(0);
-                sleep(1500);
+                B = 0;
+                if(Lift.getCurrentPosition() <= -350) {
+                    Lift.setPower(0.50);
+                }
+                else{
+                    Lift.setPower(0.25);
+                }
+                Lift.setTargetPosition(-350);
+                sleep(2000);
+                Lift.setTargetPosition(-126);
+                sleep(1000);
                 Claw.setPosition(0.00);
-                sleep(1500);
+                sleep(1000);
                 Lift.setTargetPosition(-3000);
+                B = 1;
             }
 
             if (DpadDown2) {
-                Lift.setTargetPosition(-270);
+                Lift.setTargetPosition(-375);
             }
 
             if (DpadLeft2) {
-                Lift.setTargetPosition(0);
-                sleep(1500);
+                B = 0;
+                if(Lift.getCurrentPosition() <= -350) {
+                    Lift.setPower(0.50);
+                }
+                else{
+                    Lift.setPower(0.25);
+                }
+                Lift.setTargetPosition(-350);
+                sleep(2000);
+                Lift.setTargetPosition(-126);
+                sleep(1000);
                 Claw.setPosition(0.00);
-                sleep(1500);
-                Lift.setTargetPosition(-1300);
+                sleep(2000);
+                Lift.setTargetPosition(-1385);
+                B = 1;
             }
 
             if (DpadRight2) {
-                Lift.setTargetPosition(0);
-                sleep(1500);
+                B = 0;
+                if(Lift.getCurrentPosition() <= -350) {
+                    Lift.setPower(0.50);
+                }
+                else{
+                    Lift.setPower(0.25);
+                }
+                Lift.setTargetPosition(-350);
+                sleep(4000);
+                Lift.setTargetPosition(-126);
+                sleep(1000);
                 Claw.setPosition(0.00);
-                sleep(1500);
-                Lift.setTargetPosition(-2135);
+                sleep(1000);
+                Lift.setTargetPosition(-2236);
+                B = 1;
             }
 
-            if (DpadDown1) {
-                Lift.setPower(0.50);
-                Lift.setTargetPosition(0);
-                telemetry.addData("Returning to zero position.", Lift.getCurrentPosition());
-                telemetry.update();
-                Lift.setPower(Lift_power);
-            }
-
-
-            if (Lift.getCurrentPosition() <= -3000) {
-
-                Lift.setTargetPosition(-3000);
-                telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
-                telemetry.update();
-
-            }
 
             if (RT2 > 0.9) {
                 Claw.setPosition(1.00); // Setting the claw servo to the first position.
@@ -285,18 +327,66 @@ public class COMP22_Mecanum_BuildChassis_Sulle extends LinearOpMode {
             }
 
             if (Y2) {
+                Claw.setPosition(0.00);
+                sleep(750);
                 Lift.setTargetPosition(-3000);
             }
 
             if (B2) {
-                Lift.setTargetPosition(-2135);
+                Claw.setPosition(0.00);
+                sleep(750);
+                Lift.setTargetPosition(-2236);
             }
 
             if (X2) {
-                Lift.setTargetPosition(-1300);
+                Claw.setPosition(0.00);
+                sleep(750);
+                Lift.setTargetPosition(-1385);
+            }
+
+            if (A2) {
+                Lift.setTargetPosition(0);
+                sleep(100);
+                Claw.setPosition(0.00);
+                sleep(100);
+                Lift.setTargetPosition(-3000);
+            }
+
+            // Extra Telemetry Values \\
+
+            telemetry.addData("Current Power Value:", Lift_power);
+            telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
+            telemetry.addData("Destination:", destination);
+            telemetry.addData("Current Power:",Lift.getPower());
+            telemetry.update();
+
+
+            if (Lift.getCurrentPosition() <= -3000) {
+
+                Lift.setTargetPosition(-3000);
+                telemetry.addData("WARNING! Tick limit reached. Returning to safe destination.", Lift.getCurrentPosition() );
+                telemetry.update();
+
             }
 
 
+            if ((Lift.getCurrentPosition() <= -2700) && (B==1)){
+                Lift_power = 1.00;
+            }
+            else {
+                Lift_power = 0.75;
+            }
+
+            if ((Lift.getCurrentPosition() >= -300) && (B==1)){
+                Lift_power = 1.00;
+            }
+            else {
+                Lift_power = 0.75;
+            }
+
+
+
         }
+    Motor_Power = 0;
     }
 }
