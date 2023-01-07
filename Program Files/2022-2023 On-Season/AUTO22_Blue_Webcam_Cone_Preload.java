@@ -42,9 +42,9 @@ import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import java.util.List;
 
 
-@Autonomous(name = "AUTO22_Blue_Webcam_Cone")
+@Autonomous(name = "AUTO22_Blue_Webcam_Cone_Preload")
 
-public class AUTO22_Blue_Webcam_Cone extends COMP22_Auto_Base_BuildChassis {
+public class AUTO22_Blue_Webcam_Cone_Preload extends COMP22_Auto_Base_BuildChassis {
 
     DcMotor Lift;
     Servo Claw;
@@ -107,64 +107,7 @@ public class AUTO22_Blue_Webcam_Cone extends COMP22_Auto_Base_BuildChassis {
         sleep(  1000);
         Lift.setTargetPosition(-181);
         sleep(1000);
-
-        drive(0.50,1200);
-        sleep(150);
-        turn(0.50,900);
-        sleep(150);
-        drive(0.50,-950);
-        sleep(150);
-        strafe(0.50,-600);
-        sleep(150);
-
-        Lift.setPower(0.75);
-        Lift.setTargetPosition(-1385);
-        drive(0.50,25);
-        sleep(250);
-        Claw.setPosition(0.00);
-        sleep(250);
-        drive(0.50, -25);
-
-        sleep(150);
-        drive(0.50,-50);
-        sleep(150);
-        strafe(0.50,-600);
-        sleep(150);
-        drive(0.50,75);
-        sleep(150);
-
-        Lift.setPower(0.75);
-        Lift.setTargetPosition(-590);
-        sleep(250);
-        Claw.setPosition(1.00);
-        sleep(250);
-        Lift.setTargetPosition(-832);
-
-        sleep(150);
-        drive(0.50,-75);
-        sleep(150);
-        strafe(0.50,1150);
-        sleep(150);
-        turn(0.50,900);
-        sleep(150);
-        drive(0.50,1000);
-        sleep(150);
-
-        Lift.setPower(0.75);
-        Lift.setTargetPosition(-150);
-        sleep(250);
-        Claw.setPosition(0.00);
-        sleep(250);
-        Lift.setTargetPosition(-300);
-
-        sleep(150);
-        drive(0.50,-1000);
-        sleep(150);
-        strafe(0.50,-1300);
-        sleep(150);
-        turn(0.50,1800);
-        sleep(150);
-        drive(0.50,-250);
+        drive(0.50,600);
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
