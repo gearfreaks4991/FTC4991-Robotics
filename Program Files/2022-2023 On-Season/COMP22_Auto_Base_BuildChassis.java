@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 // import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
-import android.graphics.Camera;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -11,16 +9,19 @@ import com.qualcomm.robotcore.util.Range;
 
 public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
     // -- Program Information -- \\
-
+    /**
+    This is the autonomous base program for the 2022-2023 competition season. This single program has multiple public voids that
+     allow us to call certain actions in programs that call this one and branch off of it. While this program doesn't complete any
+     specific tasks like picking up cones and driving, it enables us to in seperate programs that call this one.
+     */
 
     //--Defining Motors--\\
-    DcMotor FLMotor;
-    DcMotor FRMotor;
-    DcMotor BLMotor;
-    DcMotor BRMotor;
-    DcMotor Lift;
-    Servo Claw;
-    Camera Camera; // Temporary until we figure out TensorFlow.
+    DcMotor FLMotor; // Front Left (FL) drive motor.
+    DcMotor FRMotor; // Front Right (FR) drive motor.
+    DcMotor BLMotor; // Back Left (BL) drive motor.
+    DcMotor BRMotor; // Back Right (BR) drive motor.
+    DcMotor Lift; // Lift motor.
+    Servo Claw; // The Cam/Claw. Name is 'claw', however it could be either one depending on what we have installed.
 
     //--Defining Variables--\\
     int destination = 0;
@@ -86,7 +87,7 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
         FRMotor.setTargetPosition(destination);
         FRMotor.setPower(speed);
 
-        while ((FLMotor.isBusy())/*|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())*/) {
+        while ((FLMotor.isBusy())) {
             telemetry.addData("FL pos", FLMotor.getCurrentPosition());
             telemetry.addData("FR pos", FRMotor.getCurrentPosition());
             telemetry.addData("BL pos", BLMotor.getCurrentPosition());
@@ -135,8 +136,10 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
         BRMotor.setPower(0.00);
     }
 
-    //This public void will make the robot turn left or right. all that's needed is the speed and length it moves.
-    //setting the "ticks" to negative will make the robot turn the other direction.
+    /*
+    This public void will make the robot turn left or right. All that's needed is the speed and length it moves.
+    Setting the "ticks" to negative will make the robot turn the other direction.
+    */
     public void turn (double speed, int ticks) {
         speed = Range.clip(speed, -1, 1);
 
@@ -161,62 +164,12 @@ public abstract class COMP22_Auto_Base_BuildChassis extends LinearOpMode {
         BRMotor.setPower(speed);
         BRMotor.setTargetPosition(destination);
 
-        while ((FLMotor.isBusy())/*|| (FRMotor.isBusy())|| (BLMotor.isBusy())|| (BRMotor.isBusy())*/);
+        while ((FLMotor.isBusy()));
         FLMotor.setPower(0.00);
         FRMotor.setPower(0.00);
         BLMotor.setPower(0.00);
         BRMotor.setPower(0.00);
     }
-
-
-    public void pickup_small () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-1300);
-    }
-    public void pickup_mid () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-2135);
-    }
-    public void pickup_tall () {
-        Lift.setTargetPosition(0);
-        sleep(1000);
-        Claw.setPosition(0.00);
-        sleep(1000);
-        Lift.setTargetPosition(-3000);
-    }
-
-    public void dropoff_small () {
-        telemetry.addData("Current Lift Pos:", Lift.getCurrentPosition());
-        telemetry.update();
-        Lift.setTargetPosition(-1385);
-        sleep(250);
-        Claw.setPosition(0.00);
-    }
-    public void pickup_5stack_cone () {
-        telemetry.addData("Current Lift Pos:", Lift.getCurrentPosition());
-        telemetry.update();
-        Lift.setTargetPosition(-590);
-        sleep(250);
-        Claw.setPosition(1.00);
-        sleep(250);
-        Lift.setTargetPosition(-832);
-    }
-    public void dropoff_corner () {
-        telemetry.addData("Current Lift Pos:", Lift.getCurrentPosition());
-        telemetry.update();
-        Lift.setTargetPosition(-150);
-        sleep(250);
-        Claw.setPosition(0.00);
-        sleep(250);
-        Lift.setTargetPosition(-300);
-    }
-
 
 
 }

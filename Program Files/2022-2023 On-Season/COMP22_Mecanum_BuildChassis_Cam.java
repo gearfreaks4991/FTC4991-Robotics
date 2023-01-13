@@ -11,12 +11,12 @@ import com.qualcomm.robotcore.util.Range;
 public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
 
     // -- Defining motors used within the program. -- \\
-    DcMotor FL;
-    DcMotor FR;
-    DcMotor BL;
-    DcMotor BR;
-    DcMotor Lift;
-    Servo Claw;
+    DcMotor FL; // Front Left (FL) drive motor.
+    DcMotor FR; // Front Right (FR) drive motor.
+    DcMotor BL; // Back Left (BL) drive motor.
+    DcMotor BR; // Back Right (BR) drive motor.
+    DcMotor Lift; // Lift motor.
+    Servo Claw; // The Cam/Claw. Name is 'claw', however it could be either one depending on what we have installed.
 
 
     // -- Defining additional variables needed within the program. -- \\
@@ -91,7 +91,9 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
         while (opModeIsActive()) {
             // -- Code Information -- \\
             /*
-                PLEASE CHANGE!!!!!!
+                This is our primary TeleOp program for the 2022-2023 competition season. Much like previous seasons, we use Mecanum
+                wheels and basic controls for simple and easy operation. This year we coded lots of lift operations as we felt it would
+                be important. This is the version made for the cam design that Sulle (our 3D Printer) made.
              */
 
 
@@ -99,27 +101,25 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
             // This sets the Button Variables to the correct buttons on the GamePads.
 
             // Buttons for 1st controller
-            RS1 = gamepad1.right_stick_y;
-            LS1 = gamepad1.left_stick_y;
-            LT1 = gamepad1.left_trigger;
-            RT1 = gamepad1.right_trigger;
-            LB1 = gamepad1.left_bumper;
-            RB1 = gamepad1.right_bumper;
-            DpadDown1 = gamepad1.dpad_down;
+            RS1 = gamepad1.right_stick_y; // Right Joystick on the first controller, controls the drive motors.
+            LS1 = gamepad1.left_stick_y; // Left Joystick on the first controller, controls the drive motors.
+            LB1 = gamepad1.left_bumper; // Sets the drive motor's maximum power to 40%.
+            RB1 = gamepad1.right_bumper; // Sets the drive motor's maximum power to 70%.
+            DpadDown1 = gamepad1.dpad_down; // Sets the lift back down to the 0 position.
 
             // Buttons for 2nd controller
-            LT2 = gamepad2.left_trigger;
-            RT2 = gamepad2.right_trigger;
-            LB2 = gamepad2.left_bumper;
-            RB2 = gamepad2.right_bumper;
-            DpadUp2 = gamepad2.dpad_up;
-            DpadDown2 = gamepad2.dpad_down;
-            DpadLeft2 = gamepad2.dpad_left;
-            DpadRight2 = gamepad2.dpad_right;
-            A2 = gamepad2.a;
-            B2 = gamepad2.b;
-            X2 = gamepad2.x;
-            Y2 = gamepad2.y;
+            LT2 = gamepad2.left_trigger; // Opens the cam/claw mechanism.
+            RT2 = gamepad2.right_trigger; // Closes the cam/claw mechanism.
+            LB2 = gamepad2.left_bumper; // Raises the lift manually by 50 ticks.
+            RB2 = gamepad2.right_bumper; // Lowers the lift manually by 50 ticks.
+            DpadUp2 = gamepad2.dpad_up; // Picks up a cone, then raises the lift to the high pole.
+            DpadDown2 = gamepad2.dpad_down; // Sets the tick position to right above where we need it to be to pick up cones.
+            DpadLeft2 = gamepad2.dpad_left; // Picks up a cone, then raises the lift to the low pole.
+            DpadRight2 = gamepad2.dpad_right; // Picks up a cone, then raises the lift to the medium pole.
+            A2 = gamepad2.a; // Picks up a cone, then raises the lift to the low pole. This is used for the beacon.
+            B2 = gamepad2.b; // Closes the cam/claw, then raises the lift to the medium pole.
+            X2 = gamepad2.x; // Closes the cam/claw, then raises the lift to the low pole.
+            Y2 = gamepad2.y; // Closes the cam/claw, then raises the lift to the high pole.
 
 
             // Gamepad 1 Controls \\
@@ -251,15 +251,16 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
                  */
                 Lift.setTargetPosition(-350);
                 if (Lift.getCurrentPosition() > -1000) {
-                    sleep(500);
+                    sleep(750);
                 }
                 else{
-                    sleep(2000);
+                    sleep(1500);
                 }
                 Lift.setPower(0.50); // Setting the Lift's power value to 50%.
                 Lift.setTargetPosition(-126); // Setting the target position of the lift to the position needed to pick up the cone.
-                sleep(900); // Sleeping to ensure it has time to run to its' positions.
+                sleep(500); // Sleeping to ensure it has time to run to its' positions.
                 Claw.setPosition(0.00); // Changing the Cam/Claw's position to be able to pick up the cone.
+                sleep(900); // Sleeping to ensure it has time to run to its' positions.
                 Lift.setTargetPosition(-3000); // Setting the target position to the highest pole.
                 B = 1; // Closing the program loop.
             }
@@ -276,9 +277,9 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
                 B = 0; // Setting the variable to 0 to signify the start of the program cycle.
                 Lift.setPower(0.50); // Setting the lift power to 50%.
                 Lift.setTargetPosition(-126); // Setting the lift position to the height needed to pick up cones.
-                sleep(1000); // Sleep statement to ensure it has time to run to its' positions.
+                sleep(500); // Sleep statement to ensure it has time to run to its' positions.
                 Claw.setPosition(0.00); // Changing the Cam/Claw position to be able to pick up cones.
-                sleep(1500); // Sleep statement to ensure it has time to run to its' positions.
+                sleep(900); // Sleep statement to ensure it has time to run to its' positions.
                 Lift.setTargetPosition(-1385); // Setting the target position to the lowest pole.
                 B = 1; // Closing the program loop.
             }
@@ -296,11 +297,11 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
                     Lift.setPower(0.25);
                 }
                 Lift.setTargetPosition(-350);
-                sleep(1500); // Sleep statement to ensure it has time to run to its' positions.
+                sleep(750); // Sleep statement to ensure it has time to run to its' positions.
                 Lift.setTargetPosition(-126); // Sets the position to allow us to pick up cones.
-                sleep(1000); // Sleep statement to ensure it has time to run to its' positions.
+                sleep(500); // Sleep statement to ensure it has time to run to its' positions.
                 Claw.setPosition(0.00); // Changing the Cam/Claw position to allow us to pick up cones.
-                sleep(1000); // Sleep statement to ensure it has time to run to its' positions.
+                sleep(900); // Sleep statement to ensure it has time to run to its' positions.
                 Lift.setTargetPosition(-2236); // Setting the target position to the Middle Level Pole.
                 B = 1; // Closing the program loop.
             }
@@ -330,49 +331,76 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
                 telemetry.update();
             }
 
+            /*
+            By pressing the Y button on the 2nd controller first closes the cam/claw to allow us to pick up cones, then sets
+            the lift position to -3000 ticks, which allows us to drop cones onto the tallest pole.
+             */
             if (Y2) {
                 Claw.setPosition(0.00);
                 sleep(750);
                 Lift.setTargetPosition(-3000);
             }
 
+            /*
+            By pressing the B button on the 2nd controller, it closes the cam/claw, waits, then lifts to the medium pole position.
+             */
             if (B2) {
                 Claw.setPosition(0.00);
                 sleep(750);
                 Lift.setTargetPosition(-2236);
             }
 
+            /*
+            Pressing the X button on the 2nd gamepad controller closes the cam/claw, then waits to ensure it has picked up the desired
+            game element, then lifts to the positon allowing us to drop off the elements at the low pole.
+             */
             if (X2) {
                 Claw.setPosition(0.00);
                 sleep(750);
                 Lift.setTargetPosition(-1385);
             }
 
+
             if (A2) {
                 B = 0; // Setting the variable to 0 to signify the start of the program cycle.
-                Lift.setPower(0.50);
-                Lift.setTargetPosition(0);
+                Lift.setPower(0.50); // Setting the lift power to 50%.
+                Lift.setTargetPosition(0); // Setting the lift target position to zero.
+                /*
+                Does something similar however allows the lift a longer wait time if it detects that it is lowering from a higher
+                height. If it is, then it will allow a longer sleep period to allow the lift to naturally lower. If it is lowering from
+                a lower height, then the sleep is decreased to speed up the process.
+                 */
                 if (Lift.getCurrentPosition() > -1000) {
                     sleep(500);
                 }
                 else{
-                    sleep(3000);
+                    sleep(750);
                 }
-                Claw.setPosition(0.00);
-                sleep(1500);
-                Lift.setTargetPosition(-3000);
+                Claw.setPosition(0.00); // Changing the Cam/Claw position to allow us to pick up cones.
+                sleep(1500); // Sleep statement to ensure it has time to run to its' positions.
+                Lift.setTargetPosition(-1385);
                 B = 1; // Closing the program loop.
             }
 
             // Extra Telemetry Values \\
 
+            /*
+             These telemetry values will display constantly to give the drive team more confidence on where they are. It includes
+             the motor power, the actual lift power, lift position, and the lift_power variable's value.
+             */
             telemetry.addData("Current Power Value:", Lift_power);
             telemetry.addData("Lift Pos:", Lift.getCurrentPosition());
             telemetry.addData("Destination:", destination);
             telemetry.addData("Current Power:",Lift.getPower());
             telemetry.update();
 
-
+            /*
+            This section of the program is crucial to ensuring the reliability of our lift. We found that if it goes over -3000 ticks,
+            it will reach the limit of the strings which will break them or damage them. To prevent this, we added a stop for both the
+            mechanic and software sides. The software side constantly checks to see if the lift's current position is close to -3000
+            or if it's destination is close to or over -3000. If it detects that it is, then it will set the position to -3000 ticks
+            and display a telemetry statement warning the drive team that the lift has reached the "tick limiter".
+             */
             if (Lift.getCurrentPosition() <= -3000) {
 
                 Lift.setTargetPosition(-3000);
@@ -381,7 +409,10 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
 
             }
 
-
+            /*
+            This part slows the lift if it detects the tick value going over -2700. If it decreases further, it sets the lift power to
+            75%. Otherwise, it remains at full power to allow for speedy ascents and descents.
+             */
             if ((Lift.getCurrentPosition() <= -2700) && (B==1)){
                 Lift_power = 1.00;
             }
@@ -389,6 +420,10 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
                 Lift_power = 0.75;
             }
 
+            /*
+            Does the same thing as the statement above this one. However, instead of it slowing it when it nears the mechanical limit
+            of the motor, it slows when the lift comes close to the zero position.
+             */
             if ((Lift.getCurrentPosition() >= -300) && (B==1)){
                 Lift_power = 1.00;
             }
@@ -399,6 +434,6 @@ public class COMP22_Mecanum_BuildChassis_Cam extends LinearOpMode {
 
 
         }
-    Motor_Power = 0;
+    Motor_Power = 0; // Closes the program loop to ensure the robot doesn't act erratically while operating.
     }
 }
