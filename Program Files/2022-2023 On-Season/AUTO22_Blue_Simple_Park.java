@@ -46,7 +46,8 @@
 
     // Program Information: \\
          /**
-
+          The goal of this program is to detect the correct sign on the signal sleeve, and park correctly,
+          all on the blue side.
           */
 
      private static final String TFOD_MODEL_ASSET = "PowerPlay.tflite";

@@ -48,7 +48,8 @@ public class AUTO22_Blue_Cone_Circuit extends COMP22_Auto_Base_BuildChassis {
 
     // Program Information: \\
     /**
-
+    The goal of this program is to detect the correct sign on the signal sleeve, place cones onto poles to create a circuit,
+     and park correctly, all on the blue side.
      */
 
 
